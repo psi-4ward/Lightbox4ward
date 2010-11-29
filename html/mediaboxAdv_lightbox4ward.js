@@ -353,7 +353,7 @@ var Mediabox;
 				preload.onload = startEffect;
 				preload.src = URL;
 // FLV, MP4
-			} else if (URL.match(/\.flv|\.mp4/i) || mediaType == 'video') {
+			} else if (URL.match(/\.flv|\.mp4|\.f4v/i) || mediaType == 'video') {
 				// Strip out the hostname if it the same (PsiTrax)
 				// .htaccess from TL dont allow http:// in Querystrings for security reasons
 				if(URL.substr(0,options.hostName.length) == options.hostName) {

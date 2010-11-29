@@ -29,8 +29,8 @@ $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_gallerySRC']['0'] = "Gallery-Im
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_gallerySRC']['1'] = "Chose your images you want to show in the gallery.";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_externURL']['0'] = "Lightbox-URL";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_externURL']['1'] = "URL to an external opject. This can be an image, a social-vido-link or a website.";
-$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC']['0'] = "FLV/MOV/SWF/MP4 Video";
-$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC']['1'] = "Choose your FLV,MOV,MP4 or SWF Video here.";
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC']['0'] = "FLV/MOV/SWF/MP4/F4V Video";
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC']['1'] = "Choose your FLV,MOV,MP4,F4L or SWF Video here.";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd']['0'] = "Close lightbox on video-end";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd']['1'] = "Closes the lightbox if the video reaches the end.";
 

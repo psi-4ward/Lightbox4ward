@@ -29,8 +29,8 @@ $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_gallerySRC']['0'] = "Galeriebil
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_gallerySRC']['1'] = "Wählen Sie hier die Bilder für die Galerie aus.";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_externURL']['0'] = "Lightbox-URL";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_externURL']['1'] = "Die URL zum entfernten Objekt. Dies kann ein Bild, ein social-vido-link oder eine normale Website sein.";
-$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC']['0'] = "FLV/MOV/SWF/MP4 Video";
-$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC']['1'] = "Wählen Sie hier das FLV,MOV,MP4 oder SWF Video aus.";
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC']['0'] = "FLV/MOV/SWF/MP4/F4V Video";
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC']['1'] = "Wählen Sie hier das FLV,MOV,MP4,F4V oder SWF Video aus.";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd']['0'] = "Am Ende des Videos die Lightbox schließen";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd']['1'] = "Schließt die Lightbox wenn das Video durchgelaufen ist.";
 

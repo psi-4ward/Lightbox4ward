@@ -80,6 +80,7 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_size'] = array
 		'label'                   => &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_size'],
 		'exclude'                 => true,
 		'inputType'               => 'text',
+		'save_callback'			  => array(array('tl_form_field_lightbox4ward','normalizeSize')),	
 		'eval'                    => array('maxlength'=>100, 'multiple'=>true,'size'=>2, 'tl_class'=>'')
 	);	
 
@@ -221,6 +222,24 @@ class tl_form_field_lightbox4ward extends Backend {
 		}
 
 		return $arrAlias;
+	}	
+	
+	/**
+	 * Size callback
+	 * strips any non-numeric character expect of trailing %
+	 * @param str $val serialized value
+	 */
+	public function normalizeSize($val)
+	{
+		$val = unserialize($val);
+		
+		foreach($val as $k=>$v)
+		{
+			if(!preg_match("~^\d+%?$~",$v))
+				$val[$k] = (int)$v;
+		}
+
+		return serialize($val);
 	}	
 }		
 		

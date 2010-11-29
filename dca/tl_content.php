@@ -32,7 +32,7 @@ $GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4ward'] = '{type_legend
 
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] 				= 'lightbox4ward_type';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardImage'] 		= '{type_legend},type,headline;{lightbox4ward_link_legend},linkTitle,embed;{imglink_legend:hide},useImage;{lightbox4ward_content_legend},lightbox4ward_type;lightbox4ward_caption,lightbox4ward_description,lightbox4ward_imageSRC;{expert_legend:hide},guests,cssID,space';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardGallery'] 	= '{type_legend},type,headline;{lightbox4ward_link_legend},linkTitle,embed;{imglink_legend:hide},useImage;{lightbox4ward_content_legend},lightbox4ward_type;lightbox4ward_gallerySRC;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardGallery'] 	= '{type_legend},type,headline;{lightbox4ward_link_legend},linkTitle,embed;{imglink_legend:hide},useImage;{lightbox4ward_content_legend},lightbox4ward_type;lightbox4ward_gallerySRC,sortBy;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardExtern'] 		= '{type_legend},type,headline;{lightbox4ward_link_legend},linkTitle,embed;{imglink_legend:hide},useImage;{lightbox4ward_content_legend},lightbox4ward_type;lightbox4ward_caption,lightbox4ward_description,lightbox4ward_size,lightbox4ward_externURL;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardArticle'] 	= '{type_legend},type,headline;{lightbox4ward_link_legend},linkTitle,embed;{imglink_legend:hide},useImage;{lightbox4ward_content_legend},lightbox4ward_type;lightbox4ward_caption,lightbox4ward_description,lightbox4ward_size,articleAlias;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardFLV'] 		= '{type_legend},type,headline;{lightbox4ward_link_legend},linkTitle,embed;{imglink_legend:hide},useImage;{lightbox4ward_content_legend},lightbox4ward_type;lightbox4ward_caption,lightbox4ward_description,lightbox4ward_size,lightbox4ward_closeOnEnd,lightbox4ward_flvSRC;{expert_legend:hide},guests,cssID,space';
@@ -74,6 +74,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_size'] = array
 		'label'                   => &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_size'],
 		'exclude'                 => true,
 		'inputType'               => 'text',
+		'save_callback'			  => array(array('ce_lightbox4ward','normalizeSize')),
 		'eval'                    => array('maxlength'=>100, 'multiple'=>true,'size'=>2, 'tl_class'=>'w50')
 	);
 $GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_imageSRC'] = array
@@ -113,6 +114,27 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_closeOnEnd'] = array
 		'eval'                    => array('tl_class'=>'w50')
 	);	
 
+class ce_lightbox4ward extends System
+{
+	
+	/**
+	 * Size callback
+	 * strips any non-numeric character expect of trailing %
+	 * @param str $val serialized value
+	 */
+	public function normalizeSize($val)
+	{
+		$val = unserialize($val);
+		
+		foreach($val as $k=>$v)
+		{
+			if(!preg_match("~^\d+%?$~",$v))
+				$val[$k] = (int)$v;
+		}
 
+		return serialize($val);
+	}
+	
+}
 
 ?>

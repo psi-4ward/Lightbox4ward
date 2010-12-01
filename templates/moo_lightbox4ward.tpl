@@ -19,6 +19,7 @@ $GLOBALS['Lightbox4ward']['options']['resizeDuration'] = 800;
 $GLOBALS['Lightbox4ward']['options']['initialWidth'] = 180;
 $GLOBALS['Lightbox4ward']['options']['initialHeight'] = 100;
 $GLOBALS['Lightbox4ward']['options']['resizeTransition'] = 'Fx.Transitions.Quart.easeInOut';
+$GLOBALS['Lightbox4ward']['options']['noFlashMessage'] = &$GLOBALS['TL_LANG']['lightbox4ward']['noFlashMessage'];
 
 
 

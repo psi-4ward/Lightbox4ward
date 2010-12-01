@@ -59,6 +59,7 @@ var Mediabox;
 				text: ['','',''],		// Set "previous", "next", and "close" button content (HTML code should be written as entity codes or properly escaped)
 //				text: ['<big>«</big>','<big>»</big>','<big>×</big>'],		// Set "previous", "next", and "close" button content (HTML code should be written as entity codes or properly escaped)
 //	example		text: ['<b>P</b>rev','<b>N</b>ext','<b>C</b>lose'],
+				noFlashMessage: '<div id="mbError"><b>Error</b><br/>Adobe Flash is either not installed or not up to date, please visit <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" title="Get Flash" target="_new">Adobe.com</a> to download the free player.</div>',
 				loop: false,					// Allows to navigate between first and last images
 				keyboard: true,					// Enables keyboard control; escape key, left arrow, and right arrow
 				alpha: true,					// Adds 'x', 'c', 'p', and 'n' when keyboard control is also set to true
@@ -899,9 +900,9 @@ var Mediabox;
 		} else if (mediaType == "obj") {
 			if (Browser.Plugins.Flash.version<8) {
 				image.setStyles({backgroundImage: "none", display: ""});
-				image.set('html', '<div id="mbError"><b>Error</b><br/>Adobe Flash is either not installed or not up to date, please visit <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" title="Get Flash" target="_new">Adobe.com</a> to download the free player.</div>');
-				mediaWidth = options.DefaultWidth;
-				mediaHeight = options.DefaultHeight;
+				image.set('html', options.noFlashMessage);
+				mediaWidth = options.defaultWidth;
+				mediaHeight = options.defaultHeight;
 			} else {
 				image.setStyles({backgroundImage: "none", display: ""});
 				preload.inject(image);

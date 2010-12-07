@@ -78,6 +78,8 @@ class ContentLightbox4ward extends ContentElement {
 		$this->Template->link = $this->linkTitle;
 		$this->Template->title = specialchars($this->linkTitle);
 		$this->Template->target = (TL_MODE == 'BE') ? '' : ' onclick="lightbox4ward'.$this->id.'();return false;"';
+		$this->Template->lbType = $this->lightbox4ward_type;
+		$this->Template->lbSize = unserialize($this->lightbox4ward_size);
 		
 		switch($this->lightbox4ward_type){
 			case 'Image':

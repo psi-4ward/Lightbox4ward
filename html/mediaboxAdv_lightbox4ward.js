@@ -694,6 +694,8 @@ var Mediabox;
 					mediaWidth = mediaWidth || "640px";
 					mediaHeight = mediaHeight || "385px";
 					mediaId = "mediaId_"+new Date().getTime();	// Safari may not update iframe content with a static id.
+					// Strip other URL-Params (by PsiTrax)
+					mediaSplit[1] = mediaSplit[1].split('&')[0];
 					preload = new Element('iframe', {
 						'src': 'http://www.youtube.com/embed/'+mediaSplit[1],
 						'id': mediaId,

@@ -139,7 +139,9 @@ var Mediabox;
 				vmTitle: '1',				// Show video title
 				vmByline: '1',				// Show byline
 				vmPortrait: '1',			// Show author portrait
-				vmColor: 'ffffff'			// Custom controller colors, hex value minus the # sign, defult is 5ca0b5
+				vmColor: 'ffffff',			// Custom controller colors, hex value minus the # sign, defult is 5ca0b5
+//			AJAX options
+				ajaxSuccessCallback: false					
 			}, _options || {});
 
 			prevLink.set('html', options.text[0]);
@@ -850,7 +852,11 @@ var Mediabox;
 				ajax = new Request.HTML({
 					evalScripts: true,
 					onSuccess: function(tree,elems,html){
-						preload=html;
+						if(Mediabox.customOptions && Mediabox.customOptions.ajaxSuccessCallback != false){
+							preload = Mediabox.customOptions.ajaxSuccessCallback(URL,this);
+						} else {
+							preload=html;
+						}
 						startEffect();
 					},
 					onFailure: function(xhr){

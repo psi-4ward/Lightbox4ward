@@ -103,7 +103,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_flvSRC'] = array
 		'label'                   => &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC'],
 		'exclude'                 => true,
 		'inputType'               => 'fileTree',
-		'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=> true, 'extensions'=>'flv,mov,swf,mp4,f4v', 'mandatory'=>true, 'tl_class'=>'clr')
+		'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=> true, 'extensions'=>'flv,mov,swf,mp4,f4v,m4v', 'mandatory'=>true, 'tl_class'=>'clr')
 	);	
 $GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_closeOnEnd'] = array
 	(

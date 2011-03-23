@@ -139,9 +139,7 @@ var Mediabox;
 				vmTitle: '1',				// Show video title
 				vmByline: '1',				// Show byline
 				vmPortrait: '1',			// Show author portrait
-				vmColor: 'ffffff',			// Custom controller colors, hex value minus the # sign, defult is 5ca0b5
-//			AJAX options
-				ajaxSuccessCallback: false					
+				vmColor: 'ffffff'			// Custom controller colors, hex value minus the # sign, defult is 5ca0b5
 			}, _options || {});
 
 			prevLink.set('html', options.text[0]);
@@ -356,7 +354,7 @@ var Mediabox;
 				preload.onload = startEffect;
 				preload.src = URL;
 // FLV, MP4
-			} else if (URL.match(/\.flv|\.mp4|\.f4v/i) || mediaType == 'video') {
+			} else if (URL.match(/\.flv|\.mp4|\.m4v|\.f4v/i) || mediaType == 'video') {
 				// Strip out the hostname if it the same (PsiTrax)
 				// .htaccess from TL dont allow http:// in Querystrings for security reasons
 				if(URL.substr(0,options.hostName.length) == options.hostName) {
@@ -852,11 +850,7 @@ var Mediabox;
 				ajax = new Request.HTML({
 					evalScripts: true,
 					onSuccess: function(tree,elems,html){
-						if(Mediabox.customOptions && Mediabox.customOptions.ajaxSuccessCallback != false){
-							preload = Mediabox.customOptions.ajaxSuccessCallback(URL,this);
-						} else {
-							preload=html;
-						}
+						preload=html;
 						startEffect();
 					},
 					onFailure: function(xhr){

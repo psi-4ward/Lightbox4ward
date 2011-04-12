@@ -21,6 +21,7 @@ CREATE TABLE `tl_content` (
   `lightbox4ward_description` varchar(255) NOT NULL default '',
   `lightbox4ward_imageSRC` varchar(255) NOT NULL default '',
   `lightbox4ward_flvSRC` varchar(255) NOT NULL default '',
+  `lightbox4ward_mp3SRC` varchar(255) NOT NULL default '',  
   `lightbox4ward_closeOnEnd` char(1) NOT NULL default '',
   `lightbox4ward_article_id` int(10) unsigned NOT NULL default '0',
   `lightbox4ward_size` blob NULL,

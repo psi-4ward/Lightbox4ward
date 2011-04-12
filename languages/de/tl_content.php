@@ -33,13 +33,15 @@ $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC']['0'] = "FLV/MOV/SWF/MP
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_flvSRC']['1'] = "Wählen Sie hier das FLV,MOV,MP4,F4V oder SWF Video aus.";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd']['0'] = "Am Ende des Videos die Lightbox schließen";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd']['1'] = "Schließt die Lightbox wenn das Video durchgelaufen ist.";
-
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_mp3SRC']['0'] = "MP3/AAC Audio";
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_mp3SRC']['1'] = "Wählen Sie hier das Audio File aus.";
 
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['image'] = 'Bild';
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['gallery'] = 'Galerie';
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['video'] = 'Video';
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['article'] = 'Artikel';
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['extern'] = 'Externe Seite';
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['audio'] = 'Audio';
 
 /**
  * ExternURL Explanation

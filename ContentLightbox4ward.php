@@ -112,6 +112,10 @@ class ContentLightbox4ward extends ContentElement {
 				$this->Template->href = $this->lightbox4ward_flvSRC;
 			break;
 			
+			case 'Audio':
+				$this->Template->js = $this->generateSingeSrcJS(TL_PATH.'/'.$this->lightbox4ward_mp3SRC,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description);
+				$this->Template->href = $this->lightbox4ward_mp3SRC;
+			break;			
 		}
 		
 	}	

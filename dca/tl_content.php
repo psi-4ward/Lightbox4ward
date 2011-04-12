@@ -36,6 +36,7 @@ $GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardGallery'] 	= '{typ
 $GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardExtern'] 		= '{type_legend},type,headline;{lightbox4ward_link_legend},linkTitle,embed;{imglink_legend:hide},useImage;{lightbox4ward_content_legend},lightbox4ward_type;lightbox4ward_caption,lightbox4ward_description,lightbox4ward_size,lightbox4ward_externURL;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardArticle'] 	= '{type_legend},type,headline;{lightbox4ward_link_legend},linkTitle,embed;{imglink_legend:hide},useImage;{lightbox4ward_content_legend},lightbox4ward_type;lightbox4ward_caption,lightbox4ward_description,lightbox4ward_size,articleAlias;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardFLV'] 		= '{type_legend},type,headline;{lightbox4ward_link_legend},linkTitle,embed;{imglink_legend:hide},useImage;{lightbox4ward_content_legend},lightbox4ward_type;lightbox4ward_caption,lightbox4ward_description,lightbox4ward_size,lightbox4ward_closeOnEnd,lightbox4ward_flvSRC;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['ce_lightbox4wardAudio'] 		= '{type_legend},type,headline;{lightbox4ward_link_legend},linkTitle,embed;{imglink_legend:hide},useImage;{lightbox4ward_content_legend},lightbox4ward_type;lightbox4ward_caption,lightbox4ward_description,lightbox4ward_size,lightbox4ward_closeOnEnd,lightbox4ward_mp3SRC;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 
 
 // Fields
@@ -48,6 +49,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_type'] = array
 										'Image' 	=> &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['image'],
 										'Gallery'	=> &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['gallery'],
 										'FLV'		=> &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['video'] ,
+										'Audio'		=> &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['audio'] ,
 										'Article'	=> &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['article'] ,
 										'Extern'	=> &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['extern'] 
 									),
@@ -105,6 +107,13 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_flvSRC'] = array
 		'inputType'               => 'fileTree',
 		'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=> true, 'extensions'=>'flv,mov,swf,mp4,f4v,m4v', 'mandatory'=>true, 'tl_class'=>'clr')
 	);	
+$GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_mp3SRC'] = array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_mp3SRC'],
+		'exclude'                 => true,
+		'inputType'               => 'fileTree',
+		'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=> true, 'extensions'=>'mp3,aac', 'mandatory'=>true, 'tl_class'=>'clr')
+	);		
 $GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_closeOnEnd'] = array
 	(
 		'label'                   => &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd'],

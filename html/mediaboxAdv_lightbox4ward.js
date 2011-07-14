@@ -381,7 +381,7 @@ var Mediabox;
 				}
 				startEffect();
 // MP3, AAC
-			} else if (URL.match(/\.mp3|\.aac|tweetmic\.com|tmic\.fm/i) || mediaType == 'audio') {
+			} else if (URL.match(/\.mp3|\.ogg|\.aac|tweetmic\.com|tmic\.fm/i) || mediaType == 'audio') {
 				mediaType = 'obj';
 				mediaWidth = mediaWidth || options.defaultWidth;
 				mediaHeight = mediaHeight || "20px";

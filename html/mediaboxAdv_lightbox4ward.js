@@ -145,6 +145,12 @@ var Mediabox;
 			prevLink.set('html', options.text[0]);
 			nextLink.set('html', options.text[1]);
 			closeLink.set('html', options.text[2]);
+			
+			prevLink.set('title', options.prevLbl);
+			nextLink.set('title', options.nextLbl);
+			closeLink.set('title', options.closeLbl);
+			
+			
 
 			margin = center.getStyle('padding-left').toInt()+image.getStyle('margin-left').toInt()+image.getStyle('padding-left').toInt();
 

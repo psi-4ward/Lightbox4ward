@@ -14,12 +14,15 @@
 
 
 /* Mediabox Configs */
-$GLOBALS['Lightbox4ward']['options']['overlayOpacity'] = 0.8;
-$GLOBALS['Lightbox4ward']['options']['resizeDuration'] = 800;
-$GLOBALS['Lightbox4ward']['options']['initialWidth'] = 180;
-$GLOBALS['Lightbox4ward']['options']['initialHeight'] = 100;
+$GLOBALS['Lightbox4ward']['options']['overlayOpacity'] 	= 0.8;
+$GLOBALS['Lightbox4ward']['options']['resizeDuration'] 	= 800;
+$GLOBALS['Lightbox4ward']['options']['initialWidth'] 	= 180;
+$GLOBALS['Lightbox4ward']['options']['initialHeight'] 	= 100;
 $GLOBALS['Lightbox4ward']['options']['resizeTransition'] = 'Fx.Transitions.Quart.easeInOut';
-$GLOBALS['Lightbox4ward']['options']['noFlashMessage'] = "'".$GLOBALS['TL_LANG']['lightbox4ward']['noFlashMessage']."'";
+$GLOBALS['Lightbox4ward']['options']['noFlashMessage'] 	= "'".$GLOBALS['TL_LANG']['lightbox4ward']['noFlashMessage']."'";
+$GLOBALS['Lightbox4ward']['options']['closeLbl'] 		= "'".$GLOBALS['TL_LANG']['lightbox4ward']['closeLbl']."'";
+$GLOBALS['Lightbox4ward']['options']['nextLbl'] 		= "'".$GLOBALS['TL_LANG']['lightbox4ward']['nextLbl']."'";
+$GLOBALS['Lightbox4ward']['options']['prevLbl'] 		= "'".$GLOBALS['TL_LANG']['lightbox4ward']['prevLbl']."'";
 
 
 

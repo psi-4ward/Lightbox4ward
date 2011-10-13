@@ -94,7 +94,7 @@ var Mediabox;
 				autoplayNum: '1',			// 1 = true
 				autoplayYes: 'yes',			// yes = true
 				volume: '100',				// 0-100, used for NonverBlaster and Quicktime players
-				medialoop: 'flase',			// Loop video playback, true / false, used for NonverBlaster and Quicktime players
+				medialoop: 'false',			// Loop video playback, true / false, used for NonverBlaster and Quicktime players
 				bgcolor: '#000000',			// Background color, used for flash and QT media
 				wmode: 'opaque',			// Background setting for Adobe Flash ('opaque' and 'transparent' are most common)
 //			NonverBlaster

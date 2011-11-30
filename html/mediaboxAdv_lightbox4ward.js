@@ -396,6 +396,11 @@ var Mediabox;
 					URL[4] = URL[4] || URL[3];
 					URL = "http://media4.fjarnet.net/tweet/tweetmicapp-"+URL[4]+'.mp3';
 				}
+                // Strip out the hostname if it the same (PsiTrax)
+				// .htaccess from TL dont allow http:// in Querystrings for security reasons
+				else if(URL.substr(0,options.hostName.length) == options.hostName) {
+					URL = URL.substr(options.hostName.length);
+				}
 				if (options.useNB) {
 				preload = new Swiff(''+options.playerpath+'?mediaURL='+URL+'&allowSmoothing=true&autoPlay='+options.autoplay+'&buffer=6&showTimecode='+options.showTimecode+'&loop='+options.medialoop+'&controlColor='+options.controlColor+'&controlBackColor='+options.controlBackColor+'&defaultVolume='+options.volume+'&scaleIfFullScreen=true&showScalingButton=true&crop=false', {
 					id: 'MediaboxSWF',

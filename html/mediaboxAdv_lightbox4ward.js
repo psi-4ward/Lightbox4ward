@@ -854,13 +854,26 @@ var Mediabox;
 				startEffect();
 // AJAX by PsiTrax
 			} else if (URL.match(/ajax=true/i)) {
+                if(URL.substr(0,options.hostName.length) == options.hostName) {
+                    // make URL relative cause contaos .htaccess restriction not allowing http in the query-string
+   					URL = URL.substr(options.hostName.length);
+   				}
+
 				mediaType = 'ajax';
 				mediaWidth = mediaWidth || options.defaultWidth;
 				mediaHeight = mediaHeight || options.defaultHeight;
 				preload = "";
 				ajax = new Request.HTML({
+                    'url': URL,
 					evalScripts: true,
 					onSuccess: function(tree,elems,html){
+                        try {
+                            // decode json (comming from ajax-extension) and take its content
+                            var jsonData = JSON.decode(html);
+                            html = jsonData.content;
+                            console.log(html);
+                        } catch(e) { }
+
 						preload=html;
 						startEffect();
 					},
@@ -868,7 +881,7 @@ var Mediabox;
 						preload = '<div id="mbError"><b>Error</b><br/>An AJAX error has occoured: '+xhr.statusText+'</div>';
 						 startEffect();
 					}
-				}).get(URL);
+				}).get();
 // HTML
 			} else {
 				mediaType = 'url';

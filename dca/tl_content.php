@@ -128,7 +128,8 @@ class ce_lightbox4ward extends System
 	/**
 	 * Size callback
 	 * strips any non-numeric character expect of trailing %
-	 * @param str $val serialized value
+	 * @param string $val serialized value
+	 * @return string
 	 */
 	public function normalizeSize($val)
 	{

@@ -239,7 +239,7 @@ class ContentLightbox4ward extends ContentElement {
 				$arrImages = array();
 				foreach ($this->arrAux as $k)
 				{
-					if (strlen($k))
+					if (strlen($k) && array_key_exists($k,$images))
 					{
 						$arrImages[] = $images[$k];
 					}

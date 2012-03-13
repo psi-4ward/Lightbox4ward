@@ -55,7 +55,7 @@ var Mediabox;
 		open: function(_images, startImage, _options) {
 			options =  $extend({
 //			Text options (translate as needed)
-				buttonText: ['<big>&laquo;</big>','<big>&raquo;</big>','&nbsp;'],		// Set "previous", "next", and "close" button content (HTML code should be written as entity codes or properly escaped)
+				buttonText: ['<big>&laquo;</big>','<big>&raquo;</big>','<big>x</big>'],		// Set "previous", "next", and "close" button content (HTML code should be written as entity codes or properly escaped)
 //				buttonText: ['<big>«</big>','<big>»</big>','<big>×</big>'],
 //				buttonText: ['<b>P</b>rev','<b>N</b>ext','<b>C</b>lose'],
 				counterText: '({x} / {y})',	// Translate or change as you wish, {x} = current item number, {y} = total gallery length

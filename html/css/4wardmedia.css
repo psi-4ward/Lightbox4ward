@@ -1,4 +1,4 @@
-/* mediaboxAdvanced - white theme */
+		/*	mediaboxAdvanced 4ward theme	*/
 
 #mbOverlay {
 	position: fixed;
@@ -11,13 +11,17 @@
 	cursor: pointer;
 }
 
+		/*	Legacy fix for older browsers	*/
+
 #mbOverlay.mbOverlayFF {
-	background: transparent url(../images/mediabox/80.png) repeat;
+	background: transparent url(/images/80.png) repeat;
 }
 
 #mbOverlay.mbOverlayIE {
 	position: absolute;
 }
+
+		/*	Overlay panel styling	*/
 
 #mbCenter {
 	position: absolute;
@@ -25,23 +29,32 @@
 	left: 50%;
 	overflow: hidden;
 	background-color: #fff;
-	-moz-border-radius-topleft: 40px;
-	-moz-border-radius-bottomright: 40px;
+
 	-webkit-border-top-left-radius: 40px;
 	-webkit-border-bottom-right-radius: 40px;
-	-moz-box-shadow: 0px 5px 20px rgba(0,0,0,0.40);
-	-webkit-box-shadow: 0px 5px 20px rgba(0,0,0,0.40);
+
+	-khtml-border-radius-topleft: 40px;
+	-khtml-border-radius-bottomright: 40px;
+
+	-moz-border-radius-bottomright: 40px;
+	-moz-border-radius-topleft: 40px;
+
+
+	-moz-box-shadow: 0px 5px 20px rgba(0,0,0,0.50);
+	box-shadow: 0px 5px 20px rgba(0,0,0,0.50);
 }
 
 #mbCenter.mbLoading {
 	background: #fff url(../images/4wdLoading.gif) no-repeat center;
 
-/*	This style is applied only during animation.	*/
-/*	For example, the following turns off shadows,	*/
-/*	helping browser performance on slow systems.	*/
-/*	To leave shadows on, just remove these lines:	*/
-	-moz-box-shadow: none;
+		/*	This style is applied only during animation.	*/
+		/*	For example, the next lines turn off shadows	*/
+		/*	improving browser performance on slow systems.	*/
+		/*	To leave shadows on, just remove the following:	*/
 	-webkit-box-shadow: none;
+	-khtml-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
 }
 
 #mbImage {
@@ -49,7 +62,8 @@
 	left: 0;
 	top: 0;
 
-/*	Begin styles for inline content, if no style is given	*/
+		/*	Inline content styling	*/
+
 	font-family: Arial, Helvetica, sans-serif;
 	line-height: 130%;
 	font-size: 9pt;
@@ -60,9 +74,7 @@
 	padding: 20px 20px 8px 20px;
 }
 
-#mbImage a, #mbImage a:link, #mbImage a:visited {
-	color: #333;
-}
+		/*	Title, Caption and Button styling	*/
 
 #mbImage a:hover, #mbImage a:active {
 	color: #000;
@@ -77,7 +89,7 @@
 }
 
 #mbTitle {
-	display: block;
+	display: inline-block;
 	color: #7E1518;
 	font-weight: bold;
 	line-height:100%;
@@ -85,21 +97,19 @@
 }
 
 #mbNumber {
-	display: block;
-	position:absolute;
-	right:100px;
-	bottom:10px;
+	display: inline-block;
 	color: #333;
 	line-height: 120%;
 	font-size: 9pt;
-	margin-left:10px;
-	
+	margin:2px 0px 0px 10px;
+	float:right;
 }
 
 #mbCaption {
 	color: #445569;
 	line-height: 140%;
 	padding-top:5px;
+	padding-bottom: 5px;
 }
 #mbCaption:empty {
 	padding-top:0px;
@@ -110,9 +120,12 @@
 	float: right;
 	height: 20px;
 	width: 20px;
-	margin: 0px 10px 0px 0px;
 	outline: none;
 	padding-bottom:0px;
+	line-height: 0.1px;
+	font-size: 0.1px;
+	color: transparent;
+	margin-left:10px;
 }
 
 #mbPrevLink {
@@ -132,6 +145,9 @@
 	top:0px;
 	right:0px;
 	background: transparent url(../images/4wdClose.gif) no-repeat top right;
+	line-height: 0.1px;
+	font-size: 0.1px;
+	color: transparent;
 }
 
 /*	Styles for flash version alert	*/
@@ -146,8 +162,10 @@
 	border: 10px solid #700;
 	padding: 10px 10px 10px;
 	margin: 20px;
-	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 #mbError a, #mbError a:link, #mbError a:visited, #mbError a:hover, #mbError a:active {

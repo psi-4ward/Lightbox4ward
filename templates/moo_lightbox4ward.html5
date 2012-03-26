@@ -56,7 +56,7 @@ Mediabox.scanPage = function() {
 	{
 		return el.getAttribute('data-lightbox') != null;
 	});
-	$$(links).mediabox(Mediabox.customOptions, null,
+	$$(links).mediabox(Mediabox.customOptions,
 		function(el)
 		{
 			return [el.href, el.title, el.getAttribute('data-lightbox')];

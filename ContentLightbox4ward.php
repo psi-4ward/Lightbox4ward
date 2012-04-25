@@ -56,7 +56,7 @@ class ContentLightbox4ward extends ContentElement {
 			if ($objFile->isGdImage)
 			{
 				$size = deserialize($this->size);
-				$src = $this->getImage($this->urlEncode($this->singleSRC), $size[0], $size[1]);
+				$src = $this->getImage($this->urlEncode($this->singleSRC), $size[0], $size[1], $size[2]);
 
 				if (($imgSize = @getimagesize(TL_ROOT . '/' . $src)) !== false)
 				{

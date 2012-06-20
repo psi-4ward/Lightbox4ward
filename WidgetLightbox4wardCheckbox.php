@@ -26,37 +26,12 @@
  * @filesource
  */
 
-class WidgetLightbox4wardCheckbox extends FormCheckBox {
+class WidgetLightbox4wardCheckbox extends FormCheckBox
+{
 
-	/**
-	 * Add specific attributes
-	 * @param string
-	 * @param mixed
-	 */
-	public function __set($strKey, $varValue)
+	public function __construct($arrAttributes=false)
 	{
-		switch ($strKey)
-		{
-			case 'mandatory':
-				$this->arrConfiguration['mandatory'] = $varValue ? true : false;
-				break;
-
-			case 'rgxp':
-				break;
-
-			default:
-				parent::__set($strKey, $varValue);
-				break;
-		}
-	}	
-	
-	/**
-	 * Generate the widget and return it as string
-	 * @return string
-	 */
-	public function generate()
-	{
-		$this->import('String');
+		parent::__construct($arrAttributes);
 
 		$embed = explode('%s', $this->embed);
 
@@ -65,7 +40,24 @@ class WidgetLightbox4wardCheckbox extends FormCheckBox {
 		$label .= specialchars($this->linkTitle);
 		$label .= '</a>';
 		$label .= $embed[1];
-		
+
+		$this->arrOptions = array(array('value'=>'yes','label'=>$label));
+	}
+
+	/**
+	 * Generate the widget and return it as string
+	 * @return string
+	 */
+	public function generate()
+	{
+		// The "required" attribute only makes sense for single checkboxes
+		if ($this->mandatory)
+		{
+				$this->arrAttributes['required'] = 'required';
+		}
+
+		$this->import('String');
+
 		$post = $this->generateSingeSrcJS('#mb_lightbox4wardContent'.$this->id,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description);
 		$post .= '<div id="mb_lightbox4wardContent'.$this->id.'" class="lightbox4wardContent" style="display:none;"><div class="lightbox4wardContentInside">';
 		$post .= $this->getArticle($this->articleAlias,false,true);
@@ -74,9 +66,6 @@ class WidgetLightbox4wardCheckbox extends FormCheckBox {
 
 		$strOptions = '';
 
-		$this->arrOptions = array(array('value'=>'yes','label'=>$label));
-		
-		
 		foreach ($this->arrOptions as $i=>$arrOption)
 		{
 			$strOptions .= sprintf('<span><input type="checkbox" name="%s" id="opt_%s" class="checkbox" value="%s"%s%s /> <label id="lbl_%s" for="opt_%s">%s</label></span>',
@@ -90,12 +79,29 @@ class WidgetLightbox4wardCheckbox extends FormCheckBox {
 									$arrOption['label']);
 		}
 
-        return sprintf('<div id="ctrl_%s" class="lightbox4ward_checkbox checkbox_container%s"><input type="hidden" name="%s" value="" />%s</div>%s',
-						$this->strId,
-						(strlen($this->strClass) ? ' ' . $this->strClass : ''),
-						$this->strName,
-						$strOptions,
-						$post) . $this->addSubmit();
+		if ($this->strLabel != '')
+		{
+        	return sprintf('<fieldset id="ctrl_%s" class="lightbox4ward_checkbox checkbox_container%s"><legend>%s%s%s</legend>%s<input type="hidden" name="%s" value=""%s%s</fieldset>',
+	        				$this->strId,
+							(($this->strClass != '') ? ' ' . $this->strClass : ''),
+							($this->required ? '<span class="invisible">'.$GLOBALS['TL_LANG']['MSC']['mandatory'].'</span> ' : ''),
+							$this->strLabel,
+							($this->required ? '<span class="mandatory">*</span>' : ''),
+							$this->strError,
+							$this->strName,
+							$this->strTagEnding,
+							$strOptions) . $this->addSubmit();
+		}
+		else
+		{
+	        return sprintf('<fieldset id="ctrl_%s" class="lightbox4ward_checkbox checkbox_container%s">%s<input type="hidden" name="%s" value=""%s%s</fieldset>',
+    	    				$this->strId,
+							(($this->strClass != '') ? ' ' . $this->strClass : ''),
+							$this->strError,
+							$this->strName,
+							$this->strTagEnding,
+							$strOptions) . $this->addSubmit();
+		}
 		
 		
 	}		

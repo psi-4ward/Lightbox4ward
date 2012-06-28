@@ -90,7 +90,7 @@ class WidgetLightbox4wardCheckbox extends FormCheckBox
 							$this->strError,
 							$this->strName,
 							$this->strTagEnding,
-							$strOptions) . $this->addSubmit();
+							$strOptions) . $this->addSubmit().$post;
 		}
 		else
 		{
@@ -100,7 +100,7 @@ class WidgetLightbox4wardCheckbox extends FormCheckBox
 							$this->strError,
 							$this->strName,
 							$this->strTagEnding,
-							$strOptions) . $this->addSubmit();
+							$strOptions) . $this->addSubmit().$post;
 		}
 		
 		

@@ -15,7 +15,7 @@ var Mediabox;
 	// DOM elements
 	overlay, center, image, bottom, captionSplit, title, caption, number, prevLink, nextLink,
 	// Mediabox specific vars
-	URL, WH, WHL, elrel, mediaWidth, mediaHeight, mediaType = "none", mediaSplit, mediaId = "mediaBox", mediaFmt, margin;
+	URL, WH, WHL, elrel, mediaWidth, mediaHeight, mediaType = "none", mediaSplit, mediaId = "mediaBox", mediaFmt, margin, ajaxParam;
 
 	/*	Initialization	*/
 
@@ -77,6 +77,9 @@ var Mediabox;
 				defaultHeight: 360,				// Default height of the box (in pixels) for undefined media (MP4, FLV, etc.)
 				showCaption: true,				// Display the title and caption, true / false
 				showCounter: true,				// If true, a counter will only be shown if there is more than 1 image to display
+				ajax: {
+					evalScripts: false
+				},
 //			iOS device options
 //				iOSenable: false,				// When set to false, disables overlay entirely (links open in new tab)
 												// IMAGES and INLINE content will display normally,
@@ -859,28 +862,50 @@ var Mediabox;
 				preload = document.id(URLsplit[1]);
 				startEffect();
 // AJAX by PsiTrax
-			} else if (URL.match(/ajax=true/i)) {
+			} else if (ajaxParam = URL.match(/ajax=((%23|)[^&]+)/i)) {
                 if(URL.substr(0,options.hostName.length) == options.hostName) {
                     // make URL relative cause contaos .htaccess restriction not allowing http in the query-string
    					URL = URL.substr(options.hostName.length);
    				}
-
+				ajaxParam = decodeURIComponent(ajaxParam[1]);
 				mediaType = 'ajax';
 				mediaWidth = mediaWidth || options.defaultWidth;
 				mediaHeight = mediaHeight || options.defaultHeight;
 				preload = "";
 				ajax = new Request.HTML({
-                    'url': URL,
-					evalScripts: true,
-					onSuccess: function(tree,elems,html){
-                        try {
-                            // decode json (comming from ajax-extension) and take its content
-                            var jsonData = JSON.decode(html);
-                            html = jsonData.content;
-                            console.log(html);
-                        } catch(e) { }
+                	'url': URL,
+					evalScripts: options.ajax.evalScripts,
+					onSuccess: function(responseTree, responseElements, responseHTML, responseJavaScript){
 
-						preload=html;
+						if(ajaxParam.substr(0,1) == '#')
+						{
+
+							if(Browser.ie7)
+							{
+								// ie7 is toooo stupid
+								document.location.href = URL;
+								Mediabox.close();
+								return;
+							}
+							else if(Browser.ie8)
+							{
+								preload = document.id(responseTree[0]).getElement(ajaxParam).get('html');
+							}
+							else
+							{
+								preload = responseTree[1].getElement(ajaxParam).get('html');
+							}
+						}
+						else if(ajaxParam == 'true' || ajaxParam == 'json')
+						{
+							var jsonData = JSON.decode(responseHTML);
+							preload = jsonData.content;
+						}
+						else if(ajaxParam == 'html')
+						{
+							preload = responseHTML;
+						}
+
 						startEffect();
 					},
 					onFailure: function(xhr){

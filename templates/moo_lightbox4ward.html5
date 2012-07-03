@@ -33,7 +33,7 @@ $GLOBALS['Lightbox4ward']['options']['prevLbl'] 		= "'".$GLOBALS['TL_LANG']['lig
 /****************/
 
 // Add mediabox default style sheet 
-if(!isset($GLOBALS['TL_CSS']['lightbox4ward_css'])) $GLOBALS['TL_CSS']['lightbox4ward_css'] = 'system/modules/lightbox4ward/html/css/4wardmedia.css|screen';
+if(!isset($GLOBALS['TL_CSS']['lightbox4ward_css'])) $GLOBALS['TL_CSS']['lightbox4ward_css'] = TL_SCRIPT_URL.'system/modules/lightbox4ward/html/css/4wardmedia.css|screen';
 
 // Compile Options
 (preg_match('~(http[s]?://[^/]+).*~',$this->Environment->base,$erg)) ? $host = $erg[1] : $host=''; 
@@ -46,10 +46,9 @@ if(isset($GLOBALS['Lightbox4ward']['options']) && is_array($GLOBALS['Lightbox4wa
 $lightbox4wardOptions = substr($lightbox4wardOptions,0,-1); 
 ?>
 
-<script src="system/modules/lightbox4ward/html/mediaboxAdv_lightbox4ward.js"></script>
+<script src="<?php echo TL_SCRIPT_URL; ?>system/modules/lightbox4ward/html/mediaboxAdv_lightbox4ward.js"></script>
 
 <script>
-<!--//--><![CDATA[//><!--
 Mediabox.customOptions = {<?php echo $lightbox4wardOptions; ?>};
 Mediabox.scanPage = function() {
 	var links = $$("a").filter(function(el)
@@ -69,5 +68,4 @@ Mediabox.scanPage = function() {
 	);
 };
 window.addEvent("domready", Mediabox.scanPage);
- //--><!]]>
 </script>

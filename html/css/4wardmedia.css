@@ -85,11 +85,11 @@
 #mbBottom {
 	text-align: left;
 	padding: 0 25px 5px 20px;
-	min-height:25px;
+	min-height:40px;
 }
 
 #mbTitle {
-	display: inline-block;
+	display: block;
 	color: #7E1518;
 	font-weight: bold;
 	line-height:100%;
@@ -97,12 +97,16 @@
 }
 
 #mbNumber {
-	display: inline-block;
+	display: block;
 	color: #333;
 	line-height: 120%;
 	font-size: 9pt;
 	margin:2px 0px 0px 10px;
-	float:right;
+	position:absolute;
+	right: 25px;
+	bottom: 7px;
+	text-align:right;
+	font-size:8pt;
 }
 
 #mbCaption {

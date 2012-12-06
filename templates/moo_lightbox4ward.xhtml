@@ -9,6 +9,8 @@
  * You can also set this to blank and include the style in any other way.
  * Probalby with the TL-Style-Editor
 */
+// $GLOBALS['TL_CSS']['lightbox4ward_css'] = 'system/modules/lightbox4ward/html/css/mediaboxAdv-Smooth.css|screen';
+// $GLOBALS['TL_CSS']['lightbox4ward_css'] = 'system/modules/lightbox4ward/html/css/mediaboxAdv-Minimal.css|screen';
 // $GLOBALS['TL_CSS']['lightbox4ward_css'] = 'system/modules/lightbox4ward/html/css/mediaboxAdvWhite.css|screen';
 // $GLOBALS['TL_CSS']['lightbox4ward_css'] = 'system/modules/lightbox4ward/html/css/mediaboxAdvBlack.css|screen';
 
@@ -33,7 +35,7 @@ $GLOBALS['Lightbox4ward']['options']['prevLbl'] 		= "'".$GLOBALS['TL_LANG']['lig
 /****************/
 
 // Add mediabox default style sheet 
-if(!isset($GLOBALS['TL_CSS']['lightbox4ward_css'])) $GLOBALS['TL_CSS']['lightbox4ward_css'] = TL_SCRIPT_URL.'system/modules/lightbox4ward/html/css/4wardmedia.css|screen';
+if(!isset($GLOBALS['TL_CSS']['lightbox4ward_css'])) $GLOBALS['TL_CSS']['lightbox4ward_css'] = 'system/modules/lightbox4ward/html/css/4wardmedia.css|screen';
 
 // Compile Options
 (preg_match('~(http[s]?://[^/]+).*~',$this->Environment->base,$erg)) ? $host = $erg[1] : $host=''; 
@@ -46,7 +48,7 @@ if(isset($GLOBALS['Lightbox4ward']['options']) && is_array($GLOBALS['Lightbox4wa
 $lightbox4wardOptions = substr($lightbox4wardOptions,0,-1); 
 ?>
 
-<script type="text/javascript" src="<?php echo TL_SCRIPT_URL; ?>system/modules/lightbox4ward/html/mediaboxAdv_lightbox4ward.js"></script>
+<script type="text/javascript" src="system/modules/lightbox4ward/html/mediaboxAdv_lightbox4ward.js"></script>
 
 <script type="text/javascript">
 <!--//--><![CDATA[//><!--

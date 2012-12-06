@@ -33,6 +33,4 @@ $GLOBALS['TL_CTE']['links']['ce_lightbox4ward'] 			= 'ContentLightbox4ward';
 // WIDGET
 $GLOBALS['TL_FFL']['lightbox4ward'] = 'WidgetLightbox4ward';
 $GLOBALS['TL_FFL']['lightbox4ward_checkbox'] = 'WidgetLightbox4wardCheckbox';
-
-// support storeable field for EFG
-$GLOBALS['EFG']['storable_fields'][] = 'lightbox4ward_checkbox';
+?>

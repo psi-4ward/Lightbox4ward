@@ -129,11 +129,8 @@ class ContentLightbox4ward extends \ContentElement {
 			break;
 
 			case 'Html5Video':
-//				$this->Template->href = $this->lightbox4ward_mp3SRC;
-
-				$size = unserialize($this->lightbox4ward_size);
 				$this->Template->embed_post .= '<div id="mb_lightbox4wardContent'.$this->id.'" style="display:none;">';
-				$this->Template->embed_post .= '<video preload="none" controls="controls" width="'.$size[0].'" height="'.$size[1].'">';
+				$this->Template->embed_post .= '<video preload="none" controls="controls" width="100%" height="100%">';
 				$arrFiles = deserialize($this->lightbox4ward_html5videoSRC, true);
 				foreach($arrFiles as $intFile)
 				{
@@ -146,6 +143,7 @@ class ContentLightbox4ward extends \ContentElement {
 				$this->Template->embed_post .= '</div>';
 
 				$this->Template->js = $this->generateHtml5VideoSrcJS('#mb_lightbox4wardContent'.$this->id,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description, $arrVideoSrc);
+				$this->Template->href = $arrVideoSrc['mp4'];
 			break;
 		}
 		

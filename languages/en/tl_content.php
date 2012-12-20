@@ -35,10 +35,13 @@ $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd']['0'] = "Close ligh
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd']['1'] = "Closes the lightbox if the video reaches the end.";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_mp3SRC']['0'] = "MP3/AAC Audio";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_mp3SRC']['1'] = "Choose your audio file.";
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_html5videoSRC']['0'] = "HTML5 vide files";
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_html5videoSRC']['1'] = "Choose the MP4,WebM and OGV files for the video to achieve the best browser compatibility.";
 
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['image'] = 'image';
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['gallery'] = 'gallery';
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['video'] = 'video';
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['Html5Video'] = 'html5 video';
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['article'] = 'articel';
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['extern'] = 'external Site';
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['audio'] = 'audio';

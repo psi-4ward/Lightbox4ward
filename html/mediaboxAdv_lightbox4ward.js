@@ -80,7 +80,7 @@ var Mediabox;
 		open: function(_mediaArray, startMedia, _options) {
 			options =  $extend({
 //			Text options (translate as needed)
-				buttonText: ['<big>&laquo;</big>','<big>&raquo;</big>','<big>x</big>'],		// Set "previous", "next", and "close" button content (HTML code should be written as entity codes or properly escaped)
+				buttonText: ['<big>«</big>','<big>»</big>','<big>x</big>'],		// Set "previous", "next", and "close" button content (HTML code should be written as entity codes or properly escaped)
 //				buttonText: ['<big>«</big>','<big>»</big>','<big>×</big>'],
 //				buttonText: ['<b>P</b>rev','<b>N</b>ext','<b>C</b>lose'],
 				counterText: '({x} / {y})',	// Translate or change as you wish, {x} = current item number, {y} = total gallery length
@@ -556,7 +556,7 @@ var Mediabox;
 					classid: 'clsid:D27CDB6E-AE6D-11cf-96B8-444553540000',
 					width: mediaWidth,
 					height: mediaHeight,
-					params: {flashvars: 'photo_id='+mediaId+'&amp;show_info_box='+options.flInfo, wmode: options.wmode, bgcolor: options.bgcolor, allowscriptaccess: options.scriptaccess, allowfullscreen: options.fullscreen}
+					params: {flashvars: 'photo_id='+mediaId+'&show_info_box='+options.flInfo, wmode: options.wmode, bgcolor: options.bgcolor, allowscriptaccess: options.scriptaccess, allowfullscreen: options.fullscreen}
 					});
 				startEffect();
 // GameTrailers Video
@@ -698,7 +698,7 @@ var Mediabox;
 				mediaType = 'obj';
 				mediaWidth = mediaWidth || "400";
 				mediaHeight = mediaHeight || "326";
-				preload = new Swiff(URL+'&amp;viewcount='+options.usViewers+'&amp;autoplay='+options.autoplay, {
+				preload = new Swiff(URL+'&viewcount='+options.usViewers+'&autoplay='+options.autoplay, {
 					width: mediaWidth,
 					height: mediaHeight,
 					params: {wmode: options.wmode, bgcolor: options.bgcolor, allowscriptaccess: options.scriptaccess, allowfullscreen: options.fullscreen}
@@ -813,7 +813,7 @@ var Mediabox;
 					startEffect();
 				} else {
 					mediaType = 'obj';
-					preload = new Swiff('http://www.vimeo.com/moogaloop.swf?clip_id='+mediaId+'&amp;server=www.vimeo.com&amp;fullscreen='+options.fullscreenNum+'&amp;autoplay='+options.autoplayNum+'&amp;show_title='+options.vmTitle+'&amp;show_byline='+options.vmByline+'&amp;show_portrait='+options.vmPortrait+'&amp;color='+options.vmColor, {
+					preload = new Swiff('http://www.vimeo.com/moogaloop.swf?clip_id='+mediaId+'&server=www.vimeo.com&fullscreen='+options.fullscreenNum+'&autoplay='+options.autoplayNum+'&show_title='+options.vmTitle+'&show_byline='+options.vmByline+'&show_portrait='+options.vmPortrait+'&color='+options.vmColor, {
 						id: mediaId,
 						width: mediaWidth,
 						height: mediaHeight,
@@ -880,8 +880,6 @@ var Mediabox;
 
 	function startEffect() {
 		media.addClass('lightbox4ward'+mediaType.capitalize()); // by PsiTrax
-//		if (Browser.Platform.ios && (mediaType == "obj" || mediaType == "qt" || mediaType == "html")) alert("this isn't gonna work");
-//		if (Browser.Platform.ios && (mediaType == "obj" || mediaType == "qt" || mediaType == "html")) mediaType = "ios";
 		(mediaType == "img")?media.addEvent("click", next):media.removeEvent("click", next);
 		if (mediaType == "img"){
 			mediaWidth = preload.width;

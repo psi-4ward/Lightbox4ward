@@ -26,6 +26,7 @@ CREATE TABLE `tl_content` (
   `lightbox4ward_article_id` int(10) unsigned NOT NULL default '0',
   `lightbox4ward_size` blob NULL,
   `lightbox4ward_gallerySRC` blob NULL,
+  `lightbox4ward_html5videoSRC` blob NULL,
   `lightbox4ward_externURL` varchar(255) NOT NULL default ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

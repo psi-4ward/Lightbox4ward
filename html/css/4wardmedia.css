@@ -1,4 +1,5 @@
-/*	mediaboxAdvanced 4ward theme	*/
+		/*	mediaboxAdvanced 4ward theme	*/
+
 #mbOverlay {
 	position: fixed;
 	z-index: 9998;
@@ -10,12 +11,18 @@
 	cursor: pointer;
 }
 
-/*	Legacy fix for older browsers	*/
+		/*	Legacy fix for older browsers	*/
+
 #mbOverlay.mbOverlayFF {
 	background: transparent url(../images/80.png) repeat;
 }
 
-/*	Overlay panel styling	*/
+#mbOverlay.mbOverlayIE {
+	position: absolute;
+}
+
+		/*	Overlay panel styling	*/
+
 #mbCenter {
 	position: absolute;
 	z-index: 9999;
@@ -55,7 +62,8 @@
 	left: 0;
 	top: 0;
 
-	/*	Inline content styling	*/
+		/*	Inline content styling	*/
+
 	font-family: Arial, Helvetica, sans-serif;
 	line-height: 130%;
 	font-size: 9pt;
@@ -66,12 +74,14 @@
 	padding: 20px 20px 8px 20px;
 }
 
-/*	Title, Caption and Button styling	*/
+		/*	Title, Caption and Button styling	*/
+
 #mbImage a:hover, #mbImage a:active {
 	color: #000;
 }
 
 /*	End inline content styles	*/
+
 #mbBottom {
 	text-align: left;
 	padding: 0 20px 5px 20px;
@@ -147,6 +157,7 @@
 }
 
 /*	Styles for flash version alert	*/
+
 #mbError {
 	position: relative;
 	font-family: Myriad, Verdana, Arial, Helvetica, sans-serif;
@@ -170,6 +181,8 @@
 }
 
 /* Some Style for lightbox4ward */
+/* The Javascript sets overflow:auto! We cant do this here because transition-bug on windows */
+
 .lightbox4wardContentInside {
 	background-color:#fff;
 	color:#000;
@@ -179,13 +192,3 @@
 .lightbox4wardAjax {
 	overflow: auto;
 }
-
-/* And some fixes for our stupid friend IE */
-body.ie7 #mbOverlay, body.ie8 #mbOverlay {
-        position: absolute;
-        background: transparent url(../images/80.png) repeat;
-}
-body.ie7 #mbCenter, body.ie7 #mbCenter.loading, body.ie8 #mbCenter, body.ie8 #mbCenter.loading {
-        background-color: #fff;
-}
-

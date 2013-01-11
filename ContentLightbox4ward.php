@@ -129,8 +129,10 @@ class ContentLightbox4ward extends \ContentElement {
 			break;
 
 			case 'Html5Video':
+				$size = unserialize($this->lightbox4ward_size);
+				if(!$size) $size = array(800,600);
 				$this->Template->embed_post .= '<div id="mb_lightbox4wardContent'.$this->id.'" style="display:none;">';
-				$this->Template->embed_post .= '<video preload="none" controls="controls" width="100%" height="100%">';
+				$this->Template->embed_post .= '<video preload="none" controls="controls" width="'.$size[0].'" height="'.$size[1].'">';
 				$arrFiles = deserialize($this->lightbox4ward_html5videoSRC, true);
 				foreach($arrFiles as $intFile)
 				{
@@ -146,12 +148,17 @@ class ContentLightbox4ward extends \ContentElement {
 				$this->Template->href = $arrVideoSrc['mp4'];
 			break;
 		}
-		
+
+		// remove href in BE
+		$this->Template->href = 'javascript:false';
+
 	}
 
 
 	protected function generateHtml5VideoSrcJS($src, $size='', $caption='', $description='', $arrVideoSrc)
 	{
+		if(TL_MODE == 'BE') return;
+
 		$caption = str_replace("'","\\'",$caption); // ' have to be escaped
 		$description = str_replace("'","\\'",$description);
 		if(strlen($size)>1){
@@ -169,10 +176,10 @@ class ContentLightbox4ward extends \ContentElement {
 							."'$caption".(strlen($description)>1 ? '::'.$description : '')."'"
 							.((strlen($size)>1) ? ",'$size'" : '')
 						.']],0,Mediabox.customOptions);'
-						.'(function(){'
+						.'(function(){try{'
 							.'document.getElement("#mbContainer video").play();'
 							.(($this->lightbox4ward_closeOnEnd == '1') ? 'document.getElement("#mbContainer video").addEventListener("ended",function(){Mediabox.close();});' : '')
-						.'}).delay(Mediabox.customOptions.resizeDuration);'
+						.'} catch(e){}}).delay(Mediabox.customOptions.resizeDuration);'
 					.'}'."\n"
 				.'</script>';
 	}
@@ -180,6 +187,8 @@ class ContentLightbox4ward extends \ContentElement {
 
 	protected function generateSingeSrcJS($src,$size='',$caption='',$description='')
 	{
+		if(TL_MODE == 'BE') return;
+
 		$src = str_replace('&#61;','=',$src); // Mediabox needs "=" instead of &#61; to explode the urls
 		$caption = str_replace("'","\\'",$caption); // ' have to be escaped
 		$description = str_replace("'","\\'",$description);
@@ -203,6 +212,8 @@ class ContentLightbox4ward extends \ContentElement {
 	
 	protected function generateGalleryJS($src)
 	{
+		if(TL_MODE == 'BE') return;
+
 		$src = unserialize($src);
 		$images = array();
 		$auxDate = array();

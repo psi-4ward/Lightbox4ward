@@ -187,6 +187,7 @@
 	background-color:#fff;
 	color:#000;
 	height:100%;
+	overflow: auto;
 }
 
 .lightbox4wardAjax {

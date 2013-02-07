@@ -193,3 +193,13 @@
 .lightbox4wardAjax {
 	overflow: auto;
 }
+
+
+/* And some fixes for our stupid friend IE */
+body.ie7 #mbOverlay, body.ie8 #mbOverlay {
+        position: absolute;
+        background: transparent url(../images/80.png) repeat;
+}
+body.ie7 #mbCenter, body.ie7 #mbCenter.loading, body.ie8 #mbCenter, body.ie8 #mbCenter.loading {
+        background-color: #fff;
+}

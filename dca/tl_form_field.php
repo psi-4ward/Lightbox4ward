@@ -88,14 +88,7 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_externURL'] = array
 		'eval'                    => array('mandatory'=>true,'helpwizard'=>true, 'tl_class'=>'long clr')
 	);	
 
-$GLOBALS['TL_DCA']['tl_form_field']['fields']['singleSRC'] = array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_content']['singleSRC'],
-			'exclude'                 => true,
-			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'mandatory'=>true, 'tl_class'=>'clr')
-		);
-		
+
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['alt'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_content']['alt'],

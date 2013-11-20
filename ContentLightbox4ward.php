@@ -13,7 +13,7 @@
  * @filesource
  */
 
-class ContentLightbox4ward extends ContentElement {
+class ContentLightbox4ward extends \ContentElement {
 	
 
 	/**
@@ -33,17 +33,17 @@ class ContentLightbox4ward extends ContentElement {
 		$embed = explode('%s', $this->embed);
 
 		// Use an image instead of the title
-		if ($this->useImage && strlen($this->singleSRC) && is_file(TL_ROOT . '/' . $this->singleSRC))
+		if ($this->useImage && !empty($this->singleSRC) && ($objDbfsFile = \FilesModel::findByUuid($this->singleSRC)) && is_file(TL_ROOT . '/' . $objDbfsFile->path))
 		{
 			$this->strTemplate = 'ce_lightbox4ward_image';
-			$this->Template = new FrontendTemplate($this->strTemplate);
+			$this->Template = new \FrontendTemplate($this->strTemplate);
 
-			$objFile = new File($this->singleSRC);
+			$objFile = new \File($objDbfsFile->path);
 
 			if ($objFile->isGdImage)
 			{
 				$size = deserialize($this->size);
-				$src = $this->getImage($this->urlEncode($this->singleSRC), $size[0], $size[1], $size[2]);
+				$src = \Image::get($this->urlEncode($objDbfsFile->path), $size[0], $size[1], $size[2]);
 
 				if (($imgSize = @getimagesize(TL_ROOT . '/' . $src)) !== false)
 				{
@@ -70,6 +70,11 @@ class ContentLightbox4ward extends ContentElement {
 		
 		switch($this->lightbox4ward_type){
 			case 'Image':
+				$objFile = \FilesModel::findByUuid($this->lightbox4ward_imageSRC);
+				if($objFile)
+				{
+					$this->lightbox4ward_imageSRC = $objFile->path;
+				}
 				$this->Template->js = $this->generateSingeSrcJS($this->lightbox4ward_imageSRC,'',$this->lightbox4ward_caption,$this->lightbox4ward_description);
 				$this->Template->href = $this->lightbox4ward_imageSRC;
 			break;
@@ -95,12 +100,22 @@ class ContentLightbox4ward extends ContentElement {
 			break;
 			
 			case 'FLV':
+				$objFile = \FilesModel::findByUuid($this->lightbox4ward_flvSRC);
+				if($objFile)
+				{
+					$this->lightbox4ward_flvSRC = $objFile->path;
+				}
 				$this->Template->js = $this->generateSingeSrcJS(TL_PATH.'/'.$this->lightbox4ward_flvSRC,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description);
 				$this->Template->href = $this->lightbox4ward_flvSRC;
 			break;
 			
 			case 'Audio':
-				$this->Template->js = $this->generateSingeSrcJS(TL_PATH.'/'.$this->lightbox4ward_mp3SRC,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description);
+				$objFile = \FilesModel::findByUuid($this->lightbox4ward_mp3SRC);
+				if($objFile)
+				{
+					$this->lightbox4ward_mp3SRC = $objFile->path;
+				}
+				$this->Template->js = $this->generateSingeSrcJS($this->lightbox4ward_mp3SRC,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description);
 				$this->Template->href = $this->lightbox4ward_mp3SRC;
 			break;
 
@@ -110,11 +125,12 @@ class ContentLightbox4ward extends ContentElement {
 				$this->Template->embed_post .= '<div id="mb_lightbox4wardContent'.$this->id.'" style="display:none;">';
 				$this->Template->embed_post .= '<video preload="none" controls="controls" width="'.$size[0].'" height="'.$size[1].'">';
 				$arrFiles = deserialize($this->lightbox4ward_html5videoSRC, true);
-				foreach($arrFiles as $file)
+				foreach($arrFiles as $intFile)
 				{
-					$ext = substr($file,strrpos($file,'.')+1);
-					$this->Template->embed_post .= '<source type="video/'.$ext.'" src="'.$file.'">';
-					$arrVideoSrc[$ext] = $file;
+					$objFile = \FilesModel::findByUuid($intFile);
+					if(!$objFile) continue;
+					$this->Template->embed_post .= '<source type="video/'.$objFile->extension.'" src="'.$objFile->path.'">';
+					$arrVideoSrc[$objFile->extension] = $objFile->path;
 				}
 				$this->Template->embed_post .= '</video>';
 				$this->Template->embed_post .= '</div>';
@@ -160,7 +176,7 @@ class ContentLightbox4ward extends ContentElement {
 	}
 	
 
-	protected function generateSingeSrcJS($src,$size='',$caption='',$description='')
+	protected function generateSingeSrcJS($src, $size='', $caption='', $description='')
 	{
 		if(TL_MODE == 'BE') return;
 
@@ -189,71 +205,98 @@ class ContentLightbox4ward extends ContentElement {
 	{
 		if(TL_MODE == 'BE') return;
 
-		$src = unserialize($src);
+		$src = deserialize($src);
 		$images = array();
 		$auxDate = array();
 
+		// Get the file entries from the database
+		$objFiles = \FilesModel::findMultipleByUuids($src);
+
 		// Get all images
-		foreach ($src as $file)
+		while($objFiles->next())
 		{
-			if (isset($images[$file]) || !file_exists(TL_ROOT . '/' . $file))
+			// Continue if the files has been processed or does not exist
+			if(isset($images[$objFiles->path]) || !file_exists(TL_ROOT.'/'.$objFiles->path))
 			{
 				continue;
 			}
 
 			// Single files
-			if (is_file(TL_ROOT . '/' . $file))
+			if($objFiles->type == 'file')
 			{
-				$objFile = new File($file);
-				$this->parseMetaFile(dirname($file));
+				$objFile = new \File($objFiles->path, true);
 
-				if ($objFile->isGdImage)
-				{
-					$images[$file] = array
-					(
-						'name' => $objFile->basename,
-						'src' => $this->Environment->path.'/'.$file,
-						'alt' => (strlen($this->arrMeta[$objFile->basename][0]) ? $this->arrMeta[$objFile->basename][0] : ucfirst(str_replace('_', ' ', preg_replace('/^[0-9]+_/', '', $objFile->filename)))),
-						'link' => (strlen($this->arrMeta[$objFile->basename][1]) ? $this->arrMeta[$objFile->basename][1] : ''),
-						'caption' => (strlen($this->arrMeta[$objFile->basename][2]) ? $this->arrMeta[$objFile->basename][2] : '')
-					);
-
-					$auxDate[] = $objFile->mtime;
-				} else {
-					$images[$file] = array (
-						'name' => $objFile->basename,
-						'src'  => $this->Environment->path.'/'.$file,
-						'alt' => (strlen($this->arrMeta[$objFile->basename][0]) ? $this->arrMeta[$objFile->basename][0] : ucfirst(str_replace('_', ' ', preg_replace('/^[0-9]+_/', '', $objFile->filename)))),
-						'link' => (strlen($this->arrMeta[$objFile->basename][1]) ? $this->arrMeta[$objFile->basename][1] : ''),
-						'caption' => (strlen($this->arrMeta[$objFile->basename][2]) ? $this->arrMeta[$objFile->basename][2] : '')
-					);
-				}
-
-				continue;
-			}
-
-			$subfiles = scan(TL_ROOT . '/' . $file);
-			$this->parseMetaFile($file);
-
-			// Folders
-			foreach ($subfiles as $subfile)
-			{
-				if (is_dir(TL_ROOT . '/' . $file . '/' . $subfile))
+				if(!$objFile->isGdImage)
 				{
 					continue;
 				}
 
-				$objFile = new File($file . '/' . $subfile);
+				$arrMeta = $this->getMetaData($objFiles->meta, $objPage->language);
 
-				if ($objFile->isGdImage)
+				// Use the file name as title if none is given
+				if($arrMeta['title'] == '')
 				{
-					$images[$file . '/' . $subfile] = array
+					$arrMeta['title'] = specialchars(str_replace('_', ' ', $objFile->filename));
+				}
+
+				// Add the image
+				$images[$objFiles->path] = array
+				(
+					'id'        => $objFiles->id,
+					'uuid'      => $objFiles->uuid,
+					'name'      => $objFile->basename,
+					'singleSRC' => $objFiles->path,
+					'alt'       => $arrMeta['title'],
+					'imageUrl'  => $arrMeta['link'],
+					'caption'   => $arrMeta['caption']
+				);
+
+				$auxDate[] = $objFile->mtime;
+			}
+
+			// Folders
+			else
+			{
+				$objSubfiles = \FilesModel::findByPid($objFiles->uuid);
+
+				if($objSubfiles === null)
+				{
+					continue;
+				}
+
+				while($objSubfiles->next())
+				{
+					// Skip subfolders
+					if($objSubfiles->type == 'folder')
+					{
+						continue;
+					}
+
+					$objFile = new \File($objSubfiles->path, true);
+
+					if(!$objFile->isGdImage)
+					{
+						continue;
+					}
+
+					$arrMeta = $this->getMetaData($objSubfiles->meta, $objPage->language);
+
+					// Use the file name as title if none is given
+					if($arrMeta['title'] == '')
+					{
+						$arrMeta['title'] = specialchars(str_replace('_', ' ', $objFile->filename));
+					}
+
+					// Add the image
+					$images[$objSubfiles->path] = array
 					(
-						'name' => $objFile->basename,
-						'src' => $this->Environment->path.'/'.$file . '/' . $subfile,
-						'alt' => (strlen($this->arrMeta[$subfile][0]) ? $this->arrMeta[$subfile][0] : ucfirst(str_replace('_', ' ', preg_replace('/^[0-9]+_/', '', $objFile->filename)))),
-						'link' => (strlen($this->arrMeta[$subfile][1]) ? $this->arrMeta[$subfile][1] : ''),
-						'caption' => (strlen($this->arrMeta[$subfile][2]) ? $this->arrMeta[$subfile][2] : '')
+						'id'        => $objSubfiles->id,
+						'uuid'      => $objSubfiles->uuid,
+						'name'      => $objFile->basename,
+						'singleSRC' => $objSubfiles->path,
+						'alt'       => $arrMeta['title'],
+						'imageUrl'  => $arrMeta['link'],
+						'caption'   => $arrMeta['caption']
 					);
 
 					$auxDate[] = $objFile->mtime;
@@ -261,9 +304,70 @@ class ContentLightbox4ward extends ContentElement {
 			}
 		}
 
+		// Sort array
+		switch($this->sortBy)
+		{
+			default:
+			case 'name_asc':
+				uksort($images, 'basename_natcasecmp');
+				break;
+
+			case 'name_desc':
+				uksort($images, 'basename_natcasercmp');
+				break;
+
+			case 'date_asc':
+				array_multisort($images, SORT_NUMERIC, $auxDate, SORT_ASC);
+				break;
+
+			case 'date_desc':
+				array_multisort($images, SORT_NUMERIC, $auxDate, SORT_DESC);
+				break;
+
+			case 'meta': // Backwards compatibility
+			case 'custom':
+				if($this->orderSRC != '')
+				{
+					$tmp = deserialize($this->orderSRC);
+
+					if(!empty($tmp) && is_array($tmp))
+					{
+						// Remove all values
+						$arrOrder = array_map(function (){ }, array_flip($tmp));
+
+						// Move the matching elements to their position in $arrOrder
+						foreach($images as $k => $v)
+						{
+							if(array_key_exists($v['uuid'], $arrOrder))
+							{
+								$arrOrder[$v['uuid']] = $v;
+								unset($images[$k]);
+							}
+						}
+
+						// Append the left-over images at the end
+						if(!empty($images))
+						{
+							$arrOrder = array_merge($arrOrder, array_values($images));
+						}
+
+						// Remove empty (unreplaced) entries
+						$images = array_values(array_filter($arrOrder));
+						unset($arrOrder);
+					}
+				}
+				break;
+
+			case 'random':
+				shuffle($images);
+				break;
+		}
+
+		$images = array_values($images);
+
 		$str = "";
 		foreach($images AS $meta){
-			$str .= "['{$meta["src"]}','";
+			$str .= "['{$meta["singleSRC"]}','";
 			$str .= $meta['alt'];
 			$str .= "',''],";
 		}

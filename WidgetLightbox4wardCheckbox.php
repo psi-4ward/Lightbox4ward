@@ -127,5 +127,3 @@ class WidgetLightbox4wardCheckbox extends FormCheckBox
 	}	
 	
 }
-
-?>

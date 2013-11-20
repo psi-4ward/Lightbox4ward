@@ -1,30 +1,18 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
- * TYPOlight webCMS
- * Copyright (C) 2005 Leo Feyer
+ * Lightbox4ward
  *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation, either
- * version 2.1 of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program. If not, please visit the Free
- * Software Foundation website at http://www.gnu.org/licenses/.
+ * A lightbox implementation for contao
+ * based on mediaboxAdvanced from http://iaian7.com/webcode/mediaboxAdvanced
  *
- * PHP version 5
- * @copyright  4ward.media 2010
+ * @copyright  4ward.media 2012 <http://www.4wardmedia.de>
  * @author     Christoph Wiechert <christoph.wiechert@4wardmedia.de>
  * @package    lightbox4ward
  * @license    LGPL 
  * @filesource
  */
+
 
 class WidgetLightbox4ward extends Widget {
 
@@ -66,15 +54,15 @@ class WidgetLightbox4ward extends Widget {
 		$embed = explode('%s', $this->embed);
 
 		// Use an image instead of the title
-		if ($this->useImage && strlen($this->singleSRC) && is_file(TL_ROOT . '/' . $this->singleSRC))
+		if ($this->useImage && !empty($this->singleSRC) && ($objDbfsFile = \FilesModel::findByUuid($this->singleSRC)) && is_file(TL_ROOT . '/' . $this->singleSRC))
 		{
-			$objTpl = new FrontendTemplate('widget_lightbox4ward_image');
+			$objTpl = new \FrontendTemplate('widget_lightbox4ward_image');
 
-			$objFile = new File($this->singleSRC);
+			$objFile = new File($objDbfsFile->path);
 			if ($objFile->isGdImage)
 			{
 				$size = deserialize($this->size);
-				$src = $this->getImage($this->urlEncode($this->singleSRC), $size[0], $size[1], $size[2]);
+				$src = \Image::get($this->urlEncode($objDbfsFile->path), $size[0], $size[1], $size[2]);
 
 				if (($imgSize = @getimagesize(TL_ROOT . '/' . $src)) !== false)
 				{
@@ -89,7 +77,7 @@ class WidgetLightbox4ward extends Widget {
 				$objTpl->caption = $this->caption;
 			}
 		} else {
-			$objTpl = new FrontendTemplate('widget_lightbox4ward_article');
+			$objTpl = new \FrontendTemplate('widget_lightbox4ward_article');
 		}
 
 		$objTpl->href = '';
@@ -101,6 +89,11 @@ class WidgetLightbox4ward extends Widget {
 		
 		switch($this->lightbox4ward_type){
 			case 'Image':
+				$objFile = \FilesModel::findByUuid($this->lightbox4ward_imageSRC);
+				if($objFile)
+				{
+					$this->lightbox4ward_imageSRC = $objFile->path;
+				}
 				$objTpl->js = $this->generateSingeSrcJS($this->lightbox4ward_imageSRC,'',$this->lightbox4ward_caption,$this->lightbox4ward_description);
 				$objTpl->href = $this->lightbox4ward_imageSRC;
 			break;
@@ -156,4 +149,3 @@ class WidgetLightbox4ward extends Widget {
 	
 }
 
-?>

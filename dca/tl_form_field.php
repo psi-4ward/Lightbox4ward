@@ -56,7 +56,8 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_type'] = array
 										'Article'	=> &$GLOBALS['TL_LANG']['tl_form_field']['lightbox4ward_types']['article'] ,
 										'Extern'	=> &$GLOBALS['TL_LANG']['tl_form_field']['lightbox4ward_types']['extern'] 
 									),
-		'eval'                    => array('mandatory'=>true,'submitOnChange'=>true)
+		'eval'                    => array('mandatory'=>true,'submitOnChange'=>true),
+		'sql'					  => "varchar(255) NOT NULL default ''"
 	);
 
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_caption'] = array
@@ -64,7 +65,8 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_caption'] = array
 		'label'                   => &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_caption'],
 		'exclude'                 => true,
 		'inputType'               => 'text',
-		'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+		'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+		'sql'					  => "varchar(255) NOT NULL default ''"
 	);
 	
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_description'] = array
@@ -72,7 +74,8 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_description'] = arr
 		'label'                   => &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_description'],
 		'exclude'                 => true,
 		'inputType'               => 'text',
-		'eval'                    => array('maxlength'=>255, 'tl_class'=>'')
+		'eval'                    => array('maxlength'=>255, 'tl_class'=>''),
+		'sql'					  => "varchar(255) NOT NULL default ''"
 	);
 	
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_size'] = array
@@ -81,7 +84,8 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_size'] = array
 		'exclude'                 => true,
 		'inputType'               => 'text',
 		'save_callback'			  => array(array('tl_form_field_lightbox4ward','normalizeSize')),	
-		'eval'                    => array('maxlength'=>100, 'multiple'=>true,'size'=>2, 'tl_class'=>'')
+		'eval'                    => array('maxlength'=>100, 'multiple'=>true,'size'=>2, 'tl_class'=>''),
+		'sql'					  => "blob NULL"
 	);	
 
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_imageSRC'] = array
@@ -89,7 +93,8 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_imageSRC'] = array
 		'label'                   => &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_imageSRC'],
 		'exclude'                 => true,
 		'inputType'               => 'fileTree',
-		'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=> true, 'extensions'=>'jpg,png,jpeg,tif,bmp,gif', 'mandatory'=>true, 'tl_class'=>'clr')
+		'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=> true, 'extensions'=>'jpg,png,jpeg,tif,bmp,gif', 'mandatory'=>true, 'tl_class'=>'clr'),
+		'sql'					  => "binary(16)"
 	);
 
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_externURL'] = array
@@ -98,7 +103,8 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_externURL'] = array
 		'exclude'                 => true,
 		'inputType'               => 'text',
 		'explanation'			  => 'lightbox4ward_externURL',
-		'eval'                    => array('mandatory'=>true,'helpwizard'=>true, 'tl_class'=>'long clr')
+		'eval'                    => array('mandatory'=>true,'helpwizard'=>true, 'tl_class'=>'long clr'),
+		'sql'					  => "varchar(255) NOT NULL default ''"
 	);	
 
 
@@ -108,7 +114,8 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['alt'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'long')
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'long'),
+			'sql'					  => "varchar(255) NOT NULL default ''"
 		);
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['caption'] = array
 		(
@@ -116,7 +123,8 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['caption'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+			'sql'					  => "varchar(255) NOT NULL default ''"
 		);
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['linkTitle'] = array
 		(
@@ -124,21 +132,24 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['linkTitle'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+			'sql'					  => "varchar(255) NOT NULL default ''"
 		);
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['embed'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_content']['embed'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long clr')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'long clr'),
+			'sql'					  => "varchar(255) NOT NULL default ''"
 		);
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['useImage'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_content']['useImage'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+			'sql'					  => "char(1) NOT NULL default ''"
 		);
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['articleAlias'] = array
 		(
@@ -146,7 +157,9 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['articleAlias'] = array
 			'exclude'                 => true,
 			'inputType'               => 'select',
 			'options_callback'        => array('tl_form_field_lightbox4ward', 'getArticleAlias'),
-			'eval'                    => array('mandatory'=>true, 'submitOnChange'=>true)
+			'eval'                    => array('mandatory'=>true, 'submitOnChange'=>true),
+			'sql'					  => "int(10) unsigned NOT NULL default '0'"
+
 		);
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['imgSize'] = array
 		(
@@ -155,7 +168,8 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['imgSize'] = array
 			'inputType'               => 'imageSize',
 			'options'                 => array('crop', 'proportional', 'box'),
 			'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-			'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
+			'sql'					  => "blob NULL"
 		);
 		
 		
@@ -187,7 +201,7 @@ class tl_form_field_lightbox4ward extends Backend {
 			foreach ($this->User->pagemounts as $id)
 			{
 				$arrPids[] = $id;
-				$arrPids = array_merge($arrPids, $this->getChildRecords($id, 'tl_page', true));
+				$arrPids = array_merge($arrPids, $this->Database->getChildRecords($id, 'tl_page', true));
 			}
 
 			if (empty($arrPids))
@@ -215,12 +229,14 @@ class tl_form_field_lightbox4ward extends Backend {
 		}
 
 		return $arrAlias;
-	}	
-	
+	}
+
+
 	/**
 	 * Size callback
 	 * strips any non-numeric character expect of trailing %
 	 * @param str $val serialized value
+	 * @return string
 	 */
 	public function normalizeSize($val)
 	{

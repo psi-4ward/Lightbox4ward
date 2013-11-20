@@ -78,7 +78,7 @@ var Mediabox;
 		},
 
 		open: function(_mediaArray, startMedia, _options) {
-			options =  $extend({
+			options = {
 //			Text options (translate as needed)
 				buttonText: ['<big>&laquo;</big>','<big>&raquo;</big>','<big>x</big>'],		// Set "previous", "next", and "close" button content (HTML code should be written as entity codes or properly escaped)
 //				buttonText: ['<big>«</big>','<big>»</big>','<big>×</big>'],
@@ -174,7 +174,8 @@ var Mediabox;
 				vmByline: '1',				// Show byline
 				vmPortrait: '1',			// Show author portrait
 				vmColor: 'ffffff'			// Custom controller colors, hex value minus the # sign, defult is 5ca0b5
-			}, _options || {});
+			};
+      options = Object.merge(options, _options);
 
 			prevLink.set('html', options.buttonText[0]);
 			nextLink.set('html', options.buttonText[1]);

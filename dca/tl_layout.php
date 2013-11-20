@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
  * TYPOlight webCMS
@@ -38,4 +38,3 @@ class Lightbox4ward extends System {
  		return $varValue;
 	}
 }
-?>

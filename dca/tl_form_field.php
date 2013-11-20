@@ -1,5 +1,4 @@
 <?php
-if (!defined('TL_ROOT')) die('You can not access this file directly!');
 
 /**
  * TYPOlight webCMS
@@ -250,6 +249,4 @@ class tl_form_field_lightbox4ward extends Backend {
 
 		return serialize($val);
 	}	
-}		
-		
-?>
+}

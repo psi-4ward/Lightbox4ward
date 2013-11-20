@@ -93,7 +93,7 @@ $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_imageSRC'] = array
 		'exclude'                 => true,
 		'inputType'               => 'fileTree',
 		'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=> true, 'extensions'=>'jpg,png,jpeg,tif,bmp,gif', 'mandatory'=>true, 'tl_class'=>'clr'),
-		'sql'					  => "binary(16)"
+		'sql'					  => "binary(16) NULL"
 	);
 
 $GLOBALS['TL_DCA']['tl_form_field']['fields']['lightbox4ward_externURL'] = array

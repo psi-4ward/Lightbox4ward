@@ -1,37 +1,40 @@
 {
-	"name":"psi/lightbox4ward",
-	"description":"Contao Lightbox with ContentElements.",
-	"keywords":["lightbox", "video", "audio", "youtube", "modal"],
-	"type":"contao-module",
-	"homepage":"https://github.com/psi-4ward/lightbox4ward",
-	"license":"LGPL-3.0+",
-	"authors":[
-		{
-			"name":"Christoph Wiechert",
-			"email":"cw@4wardmedia.de",
-			"homepage":"http://4wardmedia.de",
-			"role":"Developer"
-		}
-	],
-	"support":{
-		"email":"cw@4wardmedia.de",
-		"issues":"https://github.com/psi-4ward/lightbox4ward/issues",
-		"forum":"https://community.contao.org/de/forumdisplay.php?110-4ward",
-		"irc":"irc://irc.freenode.org/contao.dev",
-		"source":"https://github.com/psi-4ward/lightbox4ward"
-	},
-	"require":{
-		"php":">=5.3",
-		"contao/core": ">3.1,<3.3"
-	},
-   "replace": {
-        "contao-legacy/lightbox4ward": "*"
-    },		
-	"extra": {
-		"contao": {
-			"symlinks": {
-				".": "system/modules/lightbox4ward"
-			}
-		}
-	}
+  "name": "psi/lightbox4ward",
+  "description": "Contao Lightbox with ContentElements.",
+  "keywords": ["lightbox", "video", "audio", "youtube", "modal"],
+  "type": "contao-module",
+  "homepage": "https://github.com/psi-4ward/lightbox4ward",
+  "license": "LGPL-3.0+",
+  "authors": [
+    {
+      "name": "Christoph Wiechert",
+      "email": "cw@4wardmedia.de",
+      "homepage": "http://4wardmedia.de",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "cw@4wardmedia.de",
+    "issues": "https://github.com/psi-4ward/lightbox4ward/issues",
+    "forum": "https://community.contao.org/de/forumdisplay.php?110-4ward",
+    "irc": "irc://irc.freenode.org/contao.dev",
+    "source": "https://github.com/psi-4ward/lightbox4ward"
+  },
+  "require": {
+    "php": ">=5.3",
+    "contao/core": ">3.1,<3.3"
+  },
+  "replace": {
+    "contao-legacy/lightbox4ward": "*"
+  },
+  "conflict": {
+    "contao/core": "3.0.*"
+  },
+  "extra": {
+    "contao": {
+      "sources": {
+        "": "system/modules/lightbox4ward"
+      }
+    }
+  }
 }

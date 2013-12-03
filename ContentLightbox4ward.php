@@ -81,8 +81,7 @@ class ContentLightbox4ward extends \ContentElement {
 			
 			case 'Gallery':
 				$this->Template->js = $this->generateGalleryJS($this->lightbox4ward_gallerySRC);
-				$src = unserialize($this->lightbox4ward_gallerySRC);
-				$this->Template->href = $src[0];
+				$this->Template->href = '#';
 			break;
 			
 			case 'Extern':

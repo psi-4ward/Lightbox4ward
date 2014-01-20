@@ -423,7 +423,8 @@ var Mediabox;
 					id: 'mbVideo',
 					width: mediaWidth,
 					height: mediaHeight,
-					params: {wmode: options.wmodeNB, bgcolor: options.bgcolor, allowscriptaccess: options.scriptaccess, allowfullscreen: options.fullscreen}
+					params: {wmode: options.wmodeNB, bgcolor: options.bgcolor, allowscriptaccess: options.scriptaccess, allowfullscreen: options.fullscreen},
+          vars: options.NBvars // (PsiTrax)
 					});
 				} else {
 				preload = new Swiff(''+options.JWplayerpath+'?file='+URL+'&backcolor='+options.backcolor+'&frontcolor='+options.frontcolor+'&lightcolor='+options.lightcolor+'&screencolor='+options.screencolor+'&autostart='+options.autoplay+'&controlbar='+options.controlbar, {
@@ -454,7 +455,8 @@ var Mediabox;
 					id: 'mbAudio',
 					width: mediaWidth,
 					height: mediaHeight,
-					params: {wmode: options.wmode, bgcolor: options.bgcolor, allowscriptaccess: options.scriptaccess, allowfullscreen: options.fullscreen}
+					params: {wmode: options.wmode, bgcolor: options.bgcolor, allowscriptaccess: options.scriptaccess, allowfullscreen: options.fullscreen},
+          vars: options.NBvars // (PsiTrax)
 					});
 				} else {
 				preload = new Swiff(''+options.JWplayerpath+'?file='+URL+'&backcolor='+options.backcolor+'&frontcolor='+options.frontcolor+'&lightcolor='+options.lightcolor+'&screencolor='+options.screencolor+'&autostart='+options.autoplay, {

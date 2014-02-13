@@ -66,7 +66,7 @@ class ContentLightbox4ward extends \ContentElement {
 		$this->Template->title = specialchars($this->linkTitle);
 		$this->Template->target = (TL_MODE == 'BE') ? '' : ' onclick="lightbox4ward'.$this->id.'();return false;"';
 		$this->Template->lbType = $this->lightbox4ward_type;
-		$this->Template->lbSize = unserialize($this->lightbox4ward_size);
+		$this->Template->lbSize = deserialize($this->lightbox4ward_size);
 		
 		switch($this->lightbox4ward_type){
 			case 'Image':
@@ -119,7 +119,7 @@ class ContentLightbox4ward extends \ContentElement {
 			break;
 
 			case 'Html5Video':
-				$size = unserialize($this->lightbox4ward_size);
+				$size = deserialize($this->lightbox4ward_size);
 				if(!$size) $size = array(800,600);
 				$this->Template->embed_post .= '<div id="mb_lightbox4wardContent'.$this->id.'" style="display:none;">';
 				$this->Template->embed_post .= '<video preload="none" controls="controls" width="'.$size[0].'" height="'.$size[1].'">';
@@ -152,7 +152,7 @@ class ContentLightbox4ward extends \ContentElement {
 		$caption = str_replace("'","\\'",$caption); // ' have to be escaped
 		$description = str_replace("'","\\'",$description);
 		if(strlen($size)>1){
-			$size = unserialize($size);
+			$size = deserialize($size);
 			$size = $size[0].' '.$size[1];
 		} 
 		
@@ -183,7 +183,7 @@ class ContentLightbox4ward extends \ContentElement {
 		$caption = str_replace("'","\\'",$caption); // ' have to be escaped
 		$description = str_replace("'","\\'",$description);
 		if(strlen($size)>1){
-			$size = unserialize($size);
+			$size = deserialize($size);
 			$size = $size[0].' '.$size[1];
 		} 
 		

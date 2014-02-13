@@ -140,7 +140,7 @@ class ce_lightbox4ward extends System
 	 */
 	public function normalizeSize($val)
 	{
-		$val = unserialize($val);
+		$val = deserialize($val);
 		
 		foreach($val as $k=>$v)
 		{

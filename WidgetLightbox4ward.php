@@ -132,7 +132,7 @@ class WidgetLightbox4ward extends Widget {
 		$caption = str_replace("'","\\'",$caption); // ' have to be escaped
 		$description = str_replace("'","\\'",$description);
 		if(strlen($size)>1){
-			$size = unserialize($size);
+			$size = deserialize($size);
 		} else {
 			$size[0] = $size[1] = '';
 		}

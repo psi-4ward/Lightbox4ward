@@ -239,7 +239,7 @@ class tl_form_field_lightbox4ward extends Backend {
 	 */
 	public function normalizeSize($val)
 	{
-		$val = unserialize($val);
+		$val = deserialize($val);
 		
 		foreach($val as $k=>$v)
 		{

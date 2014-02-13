@@ -31,7 +31,7 @@ $GLOBALS['TL_DCA']['tl_layout']['fields']['mootools']['save_callback'][] = array
 
 class Lightbox4ward extends System {
 	public function onSubmit($varValue, DataContainer $dc){
-		$arr = unserialize($varValue);
+		$arr = deserialize($varValue);
  		if(is_array($arr) && in_array('moo_mediabox',$arr) && in_array('moo_lightbox4ward',$arr)){
  			throw new Exception($GLOBALS['TL_LANG']['tl_layout']['lightbox4ward_error']);
  		}

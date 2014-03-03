@@ -15,11 +15,15 @@
  */
 
 
-$GLOBALS['TL_LANG']['CTE']['lightbox4ward']['0'] = "Lightbox4ward";
-$GLOBALS['TL_LANG']['CTE']['lightbox4ward']['1'] = "Mit der Lightbox4ward können verschiedenste Elemente wie Videos, Galerien oder Artikel in einer Lightbox dargestellt werden.";
- 
-$GLOBALS['TL_LANG']['tl_layout']['lightbox4ward_error'] = "Das jQuery Template j_colorbox kann nicht gleichzeitig mit j_lightbox4ward verwendet werden.";
-$GLOBALS['TL_LANG']['lightbox4ward']['noFlashMessage'] 	= '<div id="mbError"><b>Fehler<\/b><br/>Adobe Flash ist entweder nicht installiert oder zu alt, bitte besuchen Sie <a href="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" title="Get Flash" target="_new">Adobe.com<\/a> um eine aktuelle Version des Flash-Players herunter zu laden.<\/div>';
-$GLOBALS['TL_LANG']['lightbox4ward']['closeLbl'] 		= 'Fenster schließen';
-$GLOBALS['TL_LANG']['lightbox4ward']['nextLbl'] 		= 'nächstes Bild';
-$GLOBALS['TL_LANG']['lightbox4ward']['prevLbl'] 		= 'vorheriges Bild';
+
+$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_legend'] 		= 'Lightbox4ward';
+
+//$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_openCloseMethod'] 	= array('Open/Close-Methode', 'Wählen Sie den öffnen/schließen Methode.');
+$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_openCloseEffect'] 	= array('Open/Close-Effekt', 'Wählen Sie den öffnen/schließen Effekt.');
+$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_openCloseSpeed'] 		= array('Open/Close-Geschwindigkeit', 'Die Effekt-Dauer in Millisekunden (Standard: 250).');
+//$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_nextPrevMethod'] 		= array('Next/Pref-Methode', 'Wählen Sie den vor/zurück Methode.');
+$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_nextPrevEffect'] 		= array('Next/Pref-Effekt', 'Wählen Sie den vor/zurück Effekt.');
+$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_nextPrevSpeed'] 		= array('Next/Pref-Geschwindigkeit', 'Die Effekt-Dauer in Millisekunden (Standard: 250).');
+$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_galleryNav'] 			= array('Galerie-Navigation', 'Hier kann eine Navigation für den Galerie-Modus gewählt werden.');
+$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_title'] 				= array('Titel-Anzeige', 'Hier kann die Darstellung des Beschreibungstextes angepasst werden.');
+$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_count'] 				= array('Zähler anzeigen', 'Zeigt im Galerie-Modus einen Element-Zähler (x/y) an.');

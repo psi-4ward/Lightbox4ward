@@ -129,7 +129,7 @@ class ContentLightbox4ward extends \ContentElement {
 			case 'Extern':
 				$files = array(
 					'title' => $title,
-					'href'  => $this->lightbox4ward_externURL,
+					'href'  => utf8_decode_entities($this->lightbox4ward_externURL),
 					'type'	=> 'iframe'
 				);
 				$size = deserialize($this->lightbox4ward_size, true);

@@ -2,7 +2,8 @@
 // Add the colorbox style sheet
 $GLOBALS['TL_CSS'][] = 'system/modules/lightbox4ward/assets/fancybox/jquery.fancybox.css||static';
 $GLOBALS['TL_CSS'][] = 'system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-count.css||static';
-$GLOBALS['TL_CSS'][] = 'system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-dotNavi.css||static';
+if($GLOBALS['TL_CONFIG']['lightbox4ward_galleryNav'] == 'dots') $GLOBALS['TL_CSS'][] = 'system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-dotNavi.css||static';
+if($GLOBALS['TL_CONFIG']['lightbox4ward_galleryNav'] == 'thumbs') $GLOBALS['TL_CSS'][] = 'system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-thumbs.css||static';
 ?>
 <style>
 	.fancybox-inner .inlineContent {
@@ -10,21 +11,42 @@ $GLOBALS['TL_CSS'][] = 'system/modules/lightbox4ward/assets/fancybox/helpers/jqu
 		padding: 15px;
 	}
 </style>
-<script src="<?php echo TL_ASSETS_URL; ?>system/modules/lightbox4ward/assets/fancybox/jquery.fancybox.js"></script>
+<script src="<?php echo TL_ASSETS_URL; ?>system/modules/lightbox4ward/assets/fancybox/jquery.fancybox.pack.js"></script>
+<script src="<?php echo TL_ASSETS_URL; ?>system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-media.js"></script>
 <script src="<?php echo TL_ASSETS_URL; ?>system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-count.js"></script>
-<script src="<?php echo TL_ASSETS_URL; ?>system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-dotNavi.js"></script>
+<?php if($GLOBALS['TL_CONFIG']['lightbox4ward_galleryNav'] == 'dots'): ?>
+	<script src="<?php echo TL_ASSETS_URL; ?>system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-dotNavi.js"></script>
+<?php endif; ?>
+<?php if ($GLOBALS['TL_CONFIG']['lightbox4ward_galleryNav'] == 'thumbs'): ?>
+	<script src="<?php echo TL_ASSETS_URL; ?>system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-thumbs.js"></script>
+<?php endif; ?>
 <script>
 (function($) {
 
 	$.extend($.fancybox.defaults, {
-		openEffect: 'elastic',
-		closeEffect: 'elastic',
+		openEffect: '<?php echo $GLOBALS['TL_CONFIG']['lightbox4ward_openCloseEffect'] ?: 'elastic'; ?>',
+		closeEffect: '<?php echo $GLOBALS['TL_CONFIG']['lightbox4ward_openCloseEffect'] ?: 'elastic'; ?>',
+		openSpeed: <?php echo $GLOBALS['TL_CONFIG']['lightbox4ward_openCloseSpeed'] ?: '250'; ?>,
+		closeSpeed: <?php echo $GLOBALS['TL_CONFIG']['lightbox4ward_openCloseSpeed'] ?: '250'; ?>,
+		nextEffect: '<?php echo $GLOBALS['TL_CONFIG']['lightbox4ward_nextPrevEffect'] ?: 'elastic'; ?>',
+		prevEffect: '<?php echo $GLOBALS['TL_CONFIG']['lightbox4ward_nextPrevEffect'] ?: 'elastic'; ?>',
+		nextSpeed: <?php echo $GLOBALS['TL_CONFIG']['lightbox4ward_nextPrevSpeed'] ?: '250'; ?>,
+		prevSpeed: <?php echo $GLOBALS['TL_CONFIG']['lightbox4ward_nextPrevSpeed'] ?: '250'; ?>,
 		padding: 2,
-		openSpeed: 500,
-		closeSpeed: 500,
 		helpers: {
+			<?php if ($GLOBALS['TL_CONFIG']['lightbox4ward_count']): ?>
 			count: {}, 					// display the (x/y) counter
+			<?php endif; ?>
+			<?php if ($GLOBALS['TL_CONFIG']['lightbox4ward_galleryNav'] == 'dots'): ?>
 			dotNavi: {}, 				// show dot navigation
+			<?php endif; ?>
+			<?php if ($GLOBALS['TL_CONFIG']['lightbox4ward_galleryNav'] == 'thumbs'): ?>
+			thumbs: {
+				width: 70,
+				height: 70
+			},
+			<?php endif; ?>
+			media: {},
 			overlay : {
 				closeClick : true,
 				speedOut   : 300,
@@ -33,7 +55,7 @@ $GLOBALS['TL_CSS'][] = 'system/modules/lightbox4ward/assets/fancybox/helpers/jqu
 				locked     : true
 			},
 			title : {
-				type : 'outside' // 'float', 'inside', 'outside' or 'over'
+				type : "<?php echo $GLOBALS['TL_CONFIG']['lightbox4ward_title'] ?: 'float'; ?>" // 'float', 'inside', 'outside' or 'over'
 			}
 		}
 	});

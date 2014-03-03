@@ -1,13 +1,24 @@
-# HEADLINE
+# Lightbox4ward v3
 
-desc
+**ATTENTION**: This version ist ***NOT*** compatible with previous Lightbox4ward versions!
+
+A lightbox based on jQuery [fancybox](http://www.fancyapps.com/fancybox). It brings a `Lightbox4ward` ContentElement
+with support for:
+
+* Single Images
+* Galleries
+* Media Elements: Video/Audio
+* Articles
+* External Content: Websites, Youtube Videos
 
 
-Just copy the files to `system/modules/BgSlider` and run a database-update. Or use the Contao extension repository.
+## Installation
+1. Just copy the files to `system/modules/lightbox4ward` or use the Contao Composer.
+2. run a database-update
+3. include the `j_lightbox4ward` jQuery Template in your Layout.
+4. you can configure the Lightbox using contao settings
+5. create your Lightbox4ward content elements
 
-After installation you could create a new Module `BgSlider` and include it into your pagelayout.
-
-If you use the Navigation youve to CSS `#BgSliderPrev` and `#BgSliderNext` Elements a bit. They get injected into `<body>`.
 
 License: http://www.gnu.org/licenses/lgpl-3.0.html LGPL <br>
 Author: [4ward.media](http://www.4wardmedia.de)

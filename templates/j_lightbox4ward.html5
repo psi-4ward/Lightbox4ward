@@ -1,0 +1,51 @@
+<?php
+// Add the colorbox style sheet
+$GLOBALS['TL_CSS'][] = 'system/modules/lightbox4ward/assets/fancybox/jquery.fancybox.css||static';
+$GLOBALS['TL_CSS'][] = 'system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-count.css||static';
+$GLOBALS['TL_CSS'][] = 'system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-dotNavi.css||static';
+?>
+<style>
+	.fancybox-inner .inlineContent {
+		background: #fff;
+		padding: 15px;
+	}
+</style>
+<script src="<?php echo TL_ASSETS_URL; ?>system/modules/lightbox4ward/assets/fancybox/jquery.fancybox.js"></script>
+<script src="<?php echo TL_ASSETS_URL; ?>system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-count.js"></script>
+<script src="<?php echo TL_ASSETS_URL; ?>system/modules/lightbox4ward/assets/fancybox/helpers/jquery.fancybox-dotNavi.js"></script>
+<script>
+(function($) {
+
+	$.extend($.fancybox.defaults, {
+		openEffect: 'elastic',
+		closeEffect: 'elastic',
+		padding: 2,
+		openSpeed: 500,
+		closeSpeed: 500,
+		helpers: {
+			count: {}, 					// display the (x/y) counter
+			dotNavi: {}, 				// show dot navigation
+			overlay : {
+				closeClick : true,
+				speedOut   : 300,
+				showEarly  : true,
+				css        : {},
+				locked     : true
+			},
+			title : {
+				type : 'outside' // 'float', 'inside', 'outside' or 'over'
+			}
+		}
+	});
+
+	$(document).ready(function() {
+		$('a[data-lightbox]')
+			.map(function(i, el) {
+				$(el).attr('rel', $(el).attr('data-lightbox'));
+				return el;
+			})
+			.fancybox();
+	});
+
+})(jQuery);
+</script>

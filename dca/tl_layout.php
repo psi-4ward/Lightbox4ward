@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Lightbox4ward
+ * lightbox4ward
  *
  * A lightbox implementation for contao
- * based on mediaboxAdvanced from http://iaian7.com/webcode/mediaboxAdvanced
+ * based on fancybox from http://fancyapps.com/fancybox
  *
- * @copyright  4ward.media 2012 <http://www.4wardmedia.de>
- * @author     Christoph Wiechert <christoph.wiechert@4wardmedia.de>
+ * @link       https://github.com/psi-4ward/lightbox4ward
+ * @copyright  4ward.media 2014 <http://www.4wardmedia.de>
+ * @author     Christoph Wiechert <wio@psitrax.de>
  * @package    lightbox4ward
  * @license    LGPL
  * @filesource
@@ -15,12 +16,15 @@
 
 
 // Callback for checking conflict with moo_mediabox
-$GLOBALS['TL_DCA']['tl_layout']['fields']['mootools']['save_callback'][] = array('Lightbox4ward','onSubmit');
+$GLOBALS['TL_DCA']['tl_layout']['fields']['jquery']['save_callback'][] = array('lightbox4ward','onSubmit');
 
-class Lightbox4ward extends System {
-	public function onSubmit($varValue, DataContainer $dc){
+class lightbox4ward
+{
+	public function onSubmit($varValue)
+	{
 		$arr = unserialize($varValue);
- 		if(is_array($arr) && in_array('moo_mediabox',$arr) && in_array('moo_lightbox4ward',$arr)){
+ 		if(is_array($arr) && in_array('j_colorbox',$arr) && in_array('j_lightbox4ward',$arr))
+		{
  			throw new Exception($GLOBALS['TL_LANG']['tl_layout']['lightbox4ward_error']);
  		}
  		return $varValue;

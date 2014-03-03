@@ -1,0 +1,27 @@
+#fancyboy-dotnavi {
+	position: fixed;
+	bottom: 10px;
+	width: 100%;
+	padding-top: 10px;
+	list-style: none;
+	text-align: center;
+	z-index: 99999;
+}
+
+#fancyboy-dotnavi li {
+	display: inline;
+	padding: 0 5px;
+}
+
+#fancyboy-dotnavi li label {
+	width: 12px;
+	height: 12px;
+	border-radius: 100%;
+	display: inline-block;
+	background-color: rgba(0, 0, 0, 0.6);
+	cursor: pointer;
+}
+
+#fancyboy-dotnavi li.active label {
+	background-color: white;
+}

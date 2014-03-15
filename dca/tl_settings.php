@@ -94,5 +94,5 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['lightbox4ward_count'] = array
 (
 	'label'			=> &$GLOBALS['TL_LANG']['tl_settings']['lightbox4ward_count'],
 	'inputType'		=> 'checkbox',
-	'eval'			=> array('mandatory'=>true, 'tl_class'=>'w50')
+	'eval'			=> array('mandatory'=>false, 'tl_class'=>'w50')
 );

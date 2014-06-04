@@ -1,26 +1,28 @@
 <?php
 
 /**
- * Lightbox4ward
+ * lightbox4ward
  *
  * A lightbox implementation for contao
- * based on mediaboxAdvanced from http://iaian7.com/webcode/mediaboxAdvanced
+ * based on fancybox from http://fancyapps.com/fancybox
  *
- * @copyright  4ward.media 2012 <http://www.4wardmedia.de>
- * @author     Christoph Wiechert <christoph.wiechert@4wardmedia.de>
+ * @link       https://github.com/psi-4ward/lightbox4ward
+ * @copyright  4ward.media 2014 <http://www.4wardmedia.de>
+ * @author     Christoph Wiechert <wio@psitrax.de>
  * @package    lightbox4ward
- * @license    LGPL 
+ * @license    LGPL
  * @filesource
  */
 
+
+
 class ContentLightbox4ward extends \ContentElement {
-	
 
 	/**
 	 * Template
 	 * @var string
 	 */
-	protected $strTemplate = 'ce_lightbox4ward_article';
+	protected $strTemplate = 'ce_lightbox4ward';
 
 
 	/**
@@ -28,189 +30,149 @@ class ContentLightbox4ward extends \ContentElement {
 	 */
 	protected function compile()
 	{
-		$this->import('String');
 
-		$embed = explode('%s', $this->embed);
+		$files = array();
+		$optsStr = '';
+		$inlineContent = '';
 
-		// Use an image instead of the title
-		if ($this->useImage && !empty($this->singleSRC) && ($objDbfsFile = \FilesModel::findByUuid($this->singleSRC)) && is_file(TL_ROOT . '/' . $objDbfsFile->path))
+		if($this->useImage)
 		{
-			$this->strTemplate = 'ce_lightbox4ward_image';
-			$this->Template = new \FrontendTemplate($this->strTemplate);
-
-			$objFile = new \File($objDbfsFile->path);
-
-			if ($objFile->isGdImage)
-			{
-				$size = deserialize($this->size);
-				$src = \Image::get($this->urlEncode($objDbfsFile->path), $size[0], $size[1], $size[2]);
-
-				if (($imgSize = @getimagesize(TL_ROOT . '/' . $src)) !== false)
-				{
-					$this->Template->imgSize = ' ' . $imgSize[3];
-				}
-
-				$this->Template->imgWidth = $size[0];
-				$this->Template->imgHeight = $size[1];
-				$this->Template->src = $src;
-				$this->Template->alt = specialchars($this->alt);
-				$this->Template->title = specialchars($this->linkTitle);
-				$this->Template->caption = $this->caption;
-			}
+			$objFile = \FilesModel::findByUuid($this->singleSRC);
+			$this->singleSRC = $objFile->path;
+			$this->addImageToTemplate($this->Template, $this->arrData);
 		}
+		else
+		{
+			$embed = explode('%s', $this->embed);
+			$this->Template->embed_pre = $embed[0];
+			$this->Template->embed_post = $embed[1];
+		}
+		$this->Template->href = '#';
+		$this->Template->attributes = 'onclick="lightbox4ward'.$this->id.'(this);return false;"';
 
-		$this->Template->href = '';
-		$this->Template->embed_pre = $embed[0];
-		$this->Template->embed_post = $embed[1];
-		$this->Template->link = $this->linkTitle;
-		$this->Template->title = specialchars($this->linkTitle);
-		$this->Template->target = (TL_MODE == 'BE') ? '' : ' onclick="lightbox4ward'.$this->id.'();return false;"';
-		$this->Template->lbType = $this->lightbox4ward_type;
-		$this->Template->lbSize = deserialize($this->lightbox4ward_size);
-		
-		switch($this->lightbox4ward_type){
+		$title = $this->lightbox4ward_caption;
+
+		switch($this->lightbox4ward_type)
+		{
+			case 'Media':
+				if($this->autoplay) {
+					$autoplay = true;
+					$this->objModel->autoplay = false;
+				}
+				$ceMedia = new \ContentMedia($this->objModel);
+				$inlineContent = '<div id="lightbox4ward'.$this->id.'" style="display:none">' . $ceMedia->generate() . '</div>';
+				$files = array(
+					'title' => $title,
+					'href'  => '#lightbox4ward'.$this->id
+				);
+				$afterShowStr = '';
+				if($autoplay)
+				{
+					$afterShowStr .= ' $(this.wrap[0]).find("video")[0].play();';
+				}
+				if($this->lightbox4ward_closeOnEnd)
+				{
+					$afterShowStr .= ' $(this.wrap[0]).find("video")[0].addEventListener("ended", function() { $.fancybox.close() });';
+				}
+				if($afterShowStr)
+				{
+					$optsStr .= ', afterShow: function(){ '.$afterShowStr.' }';
+				}
+			break;
+
 			case 'Image':
-				$objFile = \FilesModel::findByUuid($this->lightbox4ward_imageSRC);
-				if($objFile)
+				$file = \FilesModel::findByUuid($this->lightbox4ward_singleSRC);
+				if(!$file)
 				{
-					$this->lightbox4ward_imageSRC = $objFile->path;
+					$files = array();
 				}
-				$this->Template->js = $this->generateSingeSrcJS($this->lightbox4ward_imageSRC,'',$this->lightbox4ward_caption,$this->lightbox4ward_description);
-				$this->Template->href = $this->lightbox4ward_imageSRC;
+				else
+				{
+					if(!$title)
+					{
+						$meta = deserialize($file->meta, true);
+						$title = $meta[$GLOBALS['objPage']->language]['title'];
+					}
+					$files = array(
+						'title' => $title,
+						'href'  => $file->path
+					);
+				}
 			break;
-			
+
 			case 'Gallery':
-				$this->Template->js = $this->generateGalleryJS($this->lightbox4ward_gallerySRC);
-				$this->Template->href = '#';
+				$files = $this->getFilesFromMultiSRC($this->multiSRC, $this->sortBy, $this->orderSRC);
+				$files = array_map(function ($file)
+				{
+					return array(
+						'title' => $file['alt'],
+						'href'  => $file['singleSRC']
+					);
+				}, $files);
 			break;
-			
-			case 'Extern':
-				$this->Template->js = $this->generateSingeSrcJS($this->lightbox4ward_externURL,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description);
-				$this->Template->href = $this->lightbox4ward_externURL;
-			break;
-			
+
 			case 'Article':
-				$this->Template->js = $this->generateSingeSrcJS('#mb_lightbox4wardContent'.$this->id,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description);
-				$this->Template->href = $this->Environment->request.'#mb_lightbox4wardContent'.$this->id;
-				
-				$this->Template->embed_post .= '<div id="mb_lightbox4wardContent'.$this->id.'" class="lightbox4wardContent" style="display:none;"><div class="lightbox4wardContentInside">';
-				$this->Template->embed_post .= $this->getArticle($this->articleAlias,false,true);
-				$this->Template->embed_post .= '</div></div>';
-			break;
-			
-			case 'FLV':
-				$objFile = \FilesModel::findByUuid($this->lightbox4ward_flvSRC);
-				if($objFile)
+				$inlineContent = '<div id="lightbox4ward'.$this->id.'" style="display:none" class="inlineContent">'.$this->getArticle($this->articleAlias, false, true).'</div>';
+				$files = array(
+					'title' => $title,
+					'href'  => '#lightbox4ward'.$this->id
+				);
+				$size = deserialize($this->lightbox4ward_size, true);
+				if($size && ($size[0] > 0 || $size[1] > 0))
 				{
-					$this->lightbox4ward_flvSRC = $objFile->path;
+					$optsStr .= ',autoSize:false';
+					if($size[0] > 0) $optsStr .= ',width:'.$size[0];
+					if($size[0] > 0) $optsStr .= ',height:'.$size[1];
 				}
-				$this->Template->js = $this->generateSingeSrcJS(TL_PATH.'/'.$this->lightbox4ward_flvSRC,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description);
-				$this->Template->href = $this->lightbox4ward_flvSRC;
-			break;
-			
-			case 'Audio':
-				$objFile = \FilesModel::findByUuid($this->lightbox4ward_mp3SRC);
-				if($objFile)
-				{
-					$this->lightbox4ward_mp3SRC = $objFile->path;
-				}
-				$this->Template->js = $this->generateSingeSrcJS($this->lightbox4ward_mp3SRC,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description);
-				$this->Template->href = $this->lightbox4ward_mp3SRC;
 			break;
 
-			case 'Html5Video':
-				$size = deserialize($this->lightbox4ward_size);
-				if(!$size) $size = array(800,600);
-				$this->Template->embed_post .= '<div id="mb_lightbox4wardContent'.$this->id.'" style="display:none;">';
-				$this->Template->embed_post .= '<video preload="none" controls="controls" width="'.$size[0].'" height="'.$size[1].'">';
-				$arrFiles = deserialize($this->lightbox4ward_html5videoSRC, true);
-				foreach($arrFiles as $intFile)
+			case 'Extern':
+				$files = array(
+					'title' => $title,
+					'href'  => utf8_decode_entities($this->lightbox4ward_externURL),
+					'type'	=> 'iframe'
+				);
+				$size = deserialize($this->lightbox4ward_size, true);
+				if($size && ($size[0] || $size[1]))
 				{
-					$objFile = \FilesModel::findByUuid($intFile);
-					if(!$objFile) continue;
-					$this->Template->embed_post .= '<source type="video/'.$objFile->extension.'" src="'.$objFile->path.'">';
-					$arrVideoSrc[$objFile->extension] = $objFile->path;
-				}
-				$this->Template->embed_post .= '</video>';
-				$this->Template->embed_post .= '</div>';
+                    if(!is_numeric($size[0])) $size[0] = '"'.$size[0].'"';
+                    if(!is_numeric($size[1])) $size[1] = '"'.$size[1].'"';
 
-				$this->Template->js = $this->generateHtml5VideoSrcJS('#mb_lightbox4wardContent'.$this->id,$this->lightbox4ward_size,$this->lightbox4ward_caption,$this->lightbox4ward_description, $arrVideoSrc);
-				$this->Template->href = $arrVideoSrc['mp4'];
-			break;
+					$optsStr .= ',autoSize:false';
+					if($size[0] > 0) $optsStr .= ',width:'.$size[0];
+					if($size[0] > 0) $optsStr .= ',height:'.$size[1];
+				}
+
+				break;
 		}
 
-		// remove href in BE
-		$this->Template->href = 'javascript:false';
-
+		$this->Template->javascript = '<script type="text/javascript">function lightbox4ward'.$this->id.'(curr){ jQuery.fancybox('.json_encode($files).',  {orig: jQuery(curr) '.$optsStr.'}); } </script>';
+		$this->Template->content = $inlineContent;
 	}
 
 
-	protected function generateHtml5VideoSrcJS($src, $size='', $caption='', $description='', $arrVideoSrc)
+	/**
+	 * Get array with files and its meta data from a multiSRC
+	 *
+	 * @param $multiSRC
+	 * @param string $sortBy
+	 * @param $orderSRC
+	 * @return array
+	 */
+	protected function getFilesFromMultiSRC($multiSRC, $sortBy='', $orderSRC)
 	{
-		if(TL_MODE == 'BE') return;
+		$multiSRC = deserialize($multiSRC);
 
-		$caption = str_replace("'","\\'",$caption); // ' have to be escaped
-		$description = str_replace("'","\\'",$description);
-		if(strlen($size)>1){
-			$size = deserialize($size);
-			$size = $size[0].' '.$size[1];
-		} 
-		
-		return 	 '<script type="text/javascript">'."\n"
-					."function lightbox4ward{$this->id}(){"
-						.'if(document.body.hasClass("mobile")){'
-							.'window.open("'.$arrVideoSrc['mp4'].'"); return;'
-						.'}'
-						.'Mediabox.open([['
-							."'$src',"
-							."'$caption".(strlen($description)>1 ? '::'.$description : '')."'"
-							.((strlen($size)>1) ? ",'$size'" : '')
-						.']],0,Mediabox.customOptions);'
-						.'(function(){try{'
-							.'document.getElement("#mbContainer video").play();'
-							.(($this->lightbox4ward_closeOnEnd == '1') ? 'document.getElement("#mbContainer video").addEventListener("ended",function(){Mediabox.close();});' : '')
-						.'} catch(e){}}).delay(Mediabox.customOptions.resizeDuration);'
-					.'}'."\n"
-				.'</script>';
-	}
-	
-
-	protected function generateSingeSrcJS($src, $size='', $caption='', $description='')
-	{
-		if(TL_MODE == 'BE') return;
-
-		$src = str_replace('&#61;','=',$src); // Mediabox needs "=" instead of &#61; to explode the urls
-		$caption = str_replace("'","\\'",$caption); // ' have to be escaped
-		$description = str_replace("'","\\'",$description);
-		if(strlen($size)>1){
-			$size = deserialize($size);
-			$size = $size[0].' '.$size[1];
-		} 
-		
-		return 	 '<script type="text/javascript">'."\n"
-					."function lightbox4ward{$this->id}(){"
-						.'Mediabox.open([['
-							."'$src',"
-							."'$caption".(strlen($description)>1 ? '::'.$description : '')."'"
-							.((strlen($size)>1) ? ",'$size'" : '')
-						.']],0,Mediabox.customOptions);'
-						.(($this->lightbox4ward_closeOnEnd == '1') ? 'NBcloseOnExit=true;' : 'NBcloseOnExit=false;')
-					.'}'."\n"
-				.'</script>';
-	}
-	
-	
-	protected function generateGalleryJS($src)
-	{
-		if(TL_MODE == 'BE') return;
-
-		$src = deserialize($src);
-		$images = array();
-		$auxDate = array();
+		// Return if there are no files
+		if(!is_array($multiSRC) || empty($multiSRC))
+		{
+			return array();
+		}
 
 		// Get the file entries from the database
-		$objFiles = \FilesModel::findMultipleByUuids($src);
+		$objFiles = \FilesModel::findMultipleByUuids($multiSRC);
 
+		$images = array();
 		// Get all images
 		while($objFiles->next())
 		{
@@ -230,7 +192,7 @@ class ContentLightbox4ward extends \ContentElement {
 					continue;
 				}
 
-				$arrMeta = $this->getMetaData($objFiles->meta, $objPage->language);
+				$arrMeta = $this->getMetaData($objFiles->meta, $GLOBALS['objPage']->language);
 
 				// Use the file name as title if none is given
 				if($arrMeta['title'] == '')
@@ -278,7 +240,7 @@ class ContentLightbox4ward extends \ContentElement {
 						continue;
 					}
 
-					$arrMeta = $this->getMetaData($objSubfiles->meta, $objPage->language);
+					$arrMeta = $this->getMetaData($objSubfiles->meta, $GLOBALS['objPage']->language);
 
 					// Use the file name as title if none is given
 					if($arrMeta['title'] == '')
@@ -304,7 +266,7 @@ class ContentLightbox4ward extends \ContentElement {
 		}
 
 		// Sort array
-		switch($this->sortBy)
+		switch($sortBy)
 		{
 			default:
 			case 'name_asc':
@@ -325,9 +287,9 @@ class ContentLightbox4ward extends \ContentElement {
 
 			case 'meta': // Backwards compatibility
 			case 'custom':
-				if($this->orderSRC != '')
+				if($orderSRC != '')
 				{
-					$tmp = deserialize($this->orderSRC);
+					$tmp = deserialize($orderSRC);
 
 					if(!empty($tmp) && is_array($tmp))
 					{
@@ -362,25 +324,8 @@ class ContentLightbox4ward extends \ContentElement {
 				break;
 		}
 
-		$images = array_values($images);
-
-		$str = "";
-		foreach($images AS $meta){
-			$str .= "['{$meta["singleSRC"]}','";
-			$str .= $meta['alt'];
-			$str .= "',''],";
-		}
-		$str = substr($str,0,-1);
-		
-		return 	 '<script type="text/javascript">'."\n"
-					."function lightbox4ward{$this->id}(){"
-						.'Mediabox.open('
-							."["
-							.$str
-							."],0,Mediabox.customOptions"
-						.');'
-					.'}'."\n"
-				.'</script>';
+		return array_values($images);
 	}
+
 }
 

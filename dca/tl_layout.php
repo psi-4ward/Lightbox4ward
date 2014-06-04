@@ -1,38 +1,30 @@
 <?php
 
 /**
- * TYPOlight webCMS
- * Copyright (C) 2005-2009 Leo Feyer
+ * lightbox4ward
  *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation, either
- * version 2.1 of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program. If not, please visit the Free
- * Software Foundation website at http://www.gnu.org/licenses/.
+ * A lightbox implementation for contao
+ * based on fancybox from http://fancyapps.com/fancybox
  *
- * PHP version 5
- * @copyright  4ward.media 2009
- * @author     Christoph Wiechert <christoph.wiechert@4wardmedia.de>
- * @package    lightbox.4ward
+ * @link       https://github.com/psi-4ward/lightbox4ward
+ * @copyright  4ward.media 2014 <http://www.4wardmedia.de>
+ * @author     Christoph Wiechert <wio@psitrax.de>
+ * @package    lightbox4ward
  * @license    LGPL
  * @filesource
  */
 
-// Callback for checking conflict with moo_mediabox
-$GLOBALS['TL_DCA']['tl_layout']['fields']['mootools']['save_callback'][] = array('Lightbox4ward','onSubmit');
 
-class Lightbox4ward extends System {
-	public function onSubmit($varValue, DataContainer $dc){
-		$arr = deserialize($varValue);
- 		if(is_array($arr) && in_array('moo_mediabox',$arr) && in_array('moo_lightbox4ward',$arr)){
+// Callback for checking conflict with moo_mediabox
+$GLOBALS['TL_DCA']['tl_layout']['fields']['jquery']['save_callback'][] = array('lightbox4ward','onSubmit');
+
+class lightbox4ward
+{
+	public function onSubmit($varValue)
+	{
+		$arr = unserialize($varValue);
+ 		if(is_array($arr) && in_array('j_colorbox',$arr) && in_array('j_lightbox4ward',$arr))
+		{
  			throw new Exception($GLOBALS['TL_LANG']['tl_layout']['lightbox4ward_error']);
  		}
  		return $varValue;

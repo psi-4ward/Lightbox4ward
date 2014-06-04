@@ -1,20 +1,20 @@
 {
   "name": "psi/lightbox4ward",
-  "description": "Contao Lightbox with ContentElements.",
-  "keywords": ["lightbox", "video", "audio", "youtube", "modal"],
+  "description": "Advanced Contao Lightbox with ContentElements",
+  "keywords": ["contao", "lightbox", "jquery"],
   "type": "contao-module",
   "homepage": "https://github.com/psi-4ward/lightbox4ward",
   "license": "LGPL-3.0+",
   "authors": [
     {
       "name": "Christoph Wiechert",
-      "email": "cw@4wardmedia.de",
+      "email": "wio@psitrax.de",
       "homepage": "http://4wardmedia.de",
       "role": "Developer"
     }
   ],
   "support": {
-    "email": "cw@4wardmedia.de",
+    "email": "wio@psitrax.de",
     "issues": "https://github.com/psi-4ward/lightbox4ward/issues",
     "forum": "https://community.contao.org/de/forumdisplay.php?110-4ward",
     "irc": "irc://irc.freenode.org/contao.dev",
@@ -22,7 +22,7 @@
   },
   "require": {
     "php": ">=5.3",
-    "contao/core": ">3.1,<3.3"
+    "contao/core": ">=3.2,<3.4"
   },
   "replace": {
     "contao-legacy/lightbox4ward": "self.version"
@@ -34,13 +34,10 @@
     "contao": {
       "sources": {
         "": "system/modules/lightbox4ward"
-      },
-      "runonce": [
-        "runonce/32update.php"
-      ]
+      }
     },
     "branch-alias": {
-      "dev-master": "1.0.x-dev"
+      "3.0-dev": "3.0.x-dev"
     }
   }
 }

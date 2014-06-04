@@ -133,8 +133,11 @@ class ContentLightbox4ward extends \ContentElement {
 					'type'	=> 'iframe'
 				);
 				$size = deserialize($this->lightbox4ward_size, true);
-				if($size && ($size[0] > 0 || $size[1] > 0))
+				if($size && ($size[0] || $size[1]))
 				{
+                    if(!is_numeric($size[0])) $size[0] = '"'.$size[0].'"';
+                    if(!is_numeric($size[1])) $size[1] = '"'.$size[1].'"';
+
 					$optsStr .= ',autoSize:false';
 					if($size[0] > 0) $optsStr .= ',width:'.$size[0];
 					if($size[0] > 0) $optsStr .= ',height:'.$size[1];

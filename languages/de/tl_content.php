@@ -1,6 +1,4 @@
 <?php
-
-
 /**
  * lightbox4ward
  *
@@ -14,7 +12,6 @@
  * @license    LGPL
  * @filesource
  */
-
 
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_link_legend'] = 'Lightbox4ward - Link';
 
@@ -33,6 +30,8 @@ $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_externURL']['0'] = "Lightbox-UR
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_externURL']['1'] = "Die URL zum entfernten Objekt. Dies kann ein Bild, ein social-vido-link oder eine normale Website sein.";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd']['0'] = "Am Ende des Videos die Lightbox schließen";
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_closeOnEnd']['1'] = "Schließt die Lightbox wenn das Video durchgelaufen ist.";
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_gallerySliderLink']['0'] = "Galeriebilder als Slider anzeigen";
+$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_gallerySliderLink']['1'] = "Anstatt des Bildlinks werden die Galeriebilder als Slideshow angezeigt. Das j_slider Template muss im Seitenlayout eingebunden sein.";
 
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['image'] = 'Bild';
 $GLOBALS['TL_LANG']['tl_content']['lightbox4ward_types']['gallery'] = 'Galerie';

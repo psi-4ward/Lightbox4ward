@@ -109,6 +109,17 @@ class ContentLightbox4ward extends \ContentElement {
 						'href'  => $file['singleSRC']
 					);
 				}, $files);
+
+                if($this->lightbox4ward_gallerySliderLink) {
+                    $arrThumbs = $files;
+                    $size = deserialize($this->size);
+                    if($size[0] || $size[1]) {
+                        foreach($arrThumbs as $k => $v) {
+                            $arrThumbs[$k]['href'] = \Image::get($v['href'], $size[0], $size[1], $size[2]);
+                        }
+                    }
+                    $this->Template->gallerySlides = $arrThumbs;
+                }
 			break;
 
 			case 'Article':
@@ -146,7 +157,7 @@ class ContentLightbox4ward extends \ContentElement {
 				break;
 		}
 
-		$this->Template->javascript = '<script type="text/javascript">function lightbox4ward'.$this->id.'(curr){ jQuery.fancybox('.json_encode($files).',  {orig: jQuery(curr) '.$optsStr.'}); } </script>';
+		$this->Template->javascript = '<script type="text/javascript">function lightbox4ward'.$this->id.'(curr, opts){ jQuery.fancybox('.json_encode($files).',  jQuery.extend({orig: jQuery(curr) '.$optsStr.'}, opts || {})); } </script>';
 		$this->Template->content = $inlineContent;
 	}
 

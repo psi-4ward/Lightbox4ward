@@ -88,13 +88,33 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_closeOnEnd'] = array
 	'eval'                    => array('tl_class'=>'w50'),
 	'sql' 					  => "char(1) NOT NULL default ''"
 );
+$GLOBALS['TL_DCA']['tl_content']['fields']['lightbox4ward_gallerySliderLink'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['lightbox4ward_gallerySliderLink'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class'=>'clr long'),
+	'sql' 					  => "char(1) NOT NULL default ''"
+);
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['multiSRC']['load_callback'][] = array('ce_lightbox4ward', 'setGallyFlag');
+$GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = array('ce_lightbox4ward', 'adjustDCA');
 
 class ce_lightbox4ward
 {
 
 	public static $extensions = 'jpg,png,jpeg,tif,mp4,move,ogv,gif,webm,mp3';
+
+
+    public function adjustDCA($dc)
+    {
+        $CE = \ContentModel::findByPk($dc->id);
+        if(!$CE || $CE->type !== 'lightbox4ward') return;
+
+        if($CE->lightbox4ward_type == 'Gallery') {
+            $GLOBALS['TL_DCA']['tl_content']['subpalettes']['useImage'] .= ',lightbox4ward_gallerySliderLink';
+        }
+    }
 
 	/**
 	 * Size callback

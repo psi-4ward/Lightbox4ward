@@ -17,3 +17,7 @@
 
 // CONTENT ELEMENTS
 $GLOBALS['TL_CTE']['links']['lightbox4ward'] 			= 'ContentLightbox4ward';
+
+// Front end modules
+$GLOBALS['FE_MOD']['miscellaneous']['lightbox4ward_autoopen'] = 'ModuleLightbox4wardAutoopen';
+

@@ -1,0 +1,15 @@
+<?php
+$GLOBALS['TL_JAVASCRIPT']['jQuery.cookie'] = 'system/modules/lightbox4ward/assets/jquery.cookie.js';
+?>
+
+<script>
+(function($) { $(function() {
+  var id = '<?php echo $this->id;?>';
+
+  if(Cookies.get('lb4wd_autoopen'+id)) return;
+  else {
+    Cookies.set('lb4wd_autoopen'+id, true, <?php echo $this->sessionCookie ? 'undefined' : '{expires: 365}';?>);
+    (<?php echo $this->js; ?>)(document.body);
+  }
+}); })(jQuery);
+</script>

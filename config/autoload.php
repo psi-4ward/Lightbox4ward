@@ -21,6 +21,7 @@
 ClassLoader::addClasses(array
 (
 	'ContentLightbox4ward'        => 'system/modules/lightbox4ward/ContentLightbox4ward.php',
+	'ModuleLightbox4wardAutoopen' => 'system/modules/lightbox4ward/ModuleLightbox4wardAutoopen.php',
 ));
 
 
@@ -29,6 +30,7 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'ce_lightbox4ward'     		   => 'system/modules/lightbox4ward/templates',
-	'j_lightbox4ward'              => 'system/modules/lightbox4ward/templates',
+	'ce_lightbox4ward'	      => 'system/modules/lightbox4ward/templates',
+	'mod_lightbox4ward_autoopen'  => 'system/modules/lightbox4ward/templates',
+	'j_lightbox4ward'             => 'system/modules/lightbox4ward/templates',
 ));

@@ -23,12 +23,13 @@ class ModuleLightbox4wardAutoopen extends Module
     $cte->generate();
  
     $this->Template->id = $this->id;
+    $this->Template->content = $cte->Template->content;
     $this->Template->sessionCookie = $this->lightbox4ward_autoopen_session;
     $this->Template->js = str_replace
     (
       array('<script type="text/javascript">','</script>'),
       '',
       $cte->Template->javascript
-    ); 
+    );
   }
 }

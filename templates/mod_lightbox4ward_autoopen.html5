@@ -2,6 +2,7 @@
 $GLOBALS['TL_JAVASCRIPT']['jQuery.cookie'] = 'system/modules/lightbox4ward/assets/jquery.cookie.js';
 ?>
 
+<div style="display:none"><?php echo $this->content; ?></div>
 <script>
 (function($) { $(function() {
   var id = '<?php echo $this->id;?>';

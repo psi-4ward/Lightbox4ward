@@ -13,8 +13,8 @@ class ModuleLightbox4wardAutoopen extends Module
 
   protected function compile()
   {
-    $objCte = \Database::getInstance()->prepare('SELECT * FROM tl_content WHERE id=?')->execute($this->lightbox4ward_ce);
-    if(!$objCte->numRows) {
+    $objCte = \ContentModel::findById($this->lightbox4ward_ce);
+    if(!$objCte) {
       \System::log('Could not find Lightbox4ward Contentelement ID:'.$this->lightbox4ward_ce, 'ModuleLightbox4wardAutoopen::compile()', 'ERROR');
       return; 
     }

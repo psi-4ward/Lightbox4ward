@@ -38,8 +38,10 @@ class ContentLightbox4ward extends \ContentElement {
 		if($this->useImage)
 		{
 			$objFile = \FilesModel::findByUuid($this->singleSRC);
-			$this->singleSRC = $objFile->path;
-			$this->addImageToTemplate($this->Template, $this->arrData);
+			if($objFile) {
+				$this->singleSRC = $objFile->path;
+				$this->addImageToTemplate($this->Template, $this->arrData);
+			}
 		}
 		else
 		{

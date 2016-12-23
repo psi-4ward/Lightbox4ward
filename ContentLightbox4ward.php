@@ -184,6 +184,7 @@ class ContentLightbox4ward extends \ContentElement {
 
 		// Get the file entries from the database
 		$objFiles = \FilesModel::findMultipleByUuids($multiSRC);
+		if(!$objFiles) return array();
 
 		$images = array();
 		// Get all images
